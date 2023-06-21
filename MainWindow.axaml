@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="mclPlus.MainWindow"
+        Title="MCLX Multi-Platform Version"
+		Icon="avares://mclPlus/assets/logo.ico">
+	<Grid>
+		<ui:NavigationView x:Name="mainView" IsPaneOpen="False" IsSettingsVisible="False" OpenPaneLength="250">
+			<ui:NavigationView.MenuItems >
+				<ui:NavigationViewItem Tag="Home" IsSelected="True" Content="主页">
+					<ui:NavigationViewItem.Icon>
+						<ui:FontIcon Glyph="&#xE10F;" FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets"/>
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="下载" Tag="DownPage">
+					<ui:NavigationViewItem.Icon>
+						<ui:FontIcon Glyph="&#xE118;" FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets"/>
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="管理" Tag="ManagePage">
+					<ui:NavigationViewItem.Icon>
+						<ui:FontIcon FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets" Glyph="&#xE178;"/>
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+			</ui:NavigationView.MenuItems>
+			<ui:NavigationView.FooterMenuItems>
+				<ui:NavigationViewItem Content="关于" Tag="Info">
+					<ui:NavigationViewItem.Icon>
+						<ui:FontIcon FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets" Glyph="&#xE946;"/>
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Content="设置" Tag="Setting">
+					<ui:NavigationViewItem.Icon>
+						<ui:FontIcon FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets" Glyph="&#xE115;"/>
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+			</ui:NavigationView.FooterMenuItems>
+		</ui:NavigationView>
+		<ui:Frame Margin="50,0,0,0" x:Name="mainFrame"/>
+	</Grid>
+</Window>
