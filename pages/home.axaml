@@ -2,9 +2,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="mclPlus.pages.home">
 	<Grid>
-		<Button Width="282" Height="64" Margin="10,0,0,10" VerticalAlignment="Bottom" Classes="accent"/>
+		<Button Width="282" Height="65" Margin="10,0,0,10" VerticalAlignment="Bottom" Classes="accent">
+			<Button.Content>
+				<StackPanel>
+					<Label Content="未选择版本" x:Name="versionText" Foreground="White" HorizontalContentAlignment="Center" Height="22" FontFamily="{DynamicResource default}" />
+					<Label HorizontalContentAlignment="Center" FontSize="25" VerticalContentAlignment="Top" Height="34" Content="启动游戏" Foreground="White" FontFamily="{DynamicResource default}"/>
+				</StackPanel>
+			</Button.Content>
+		</Button>
+		<StackPanel Margin="10,10,463,388">
+			<StackPanel Orientation="Horizontal">
+				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Java版本：" FontFamily="{DynamicResource default}" FontSize="14"/>
+				<ui:ComboBox ValueMemberBinding="{Binding JavaPath}" VerticalAlignment="Center" Width="170" x:Name="javaCombo" FontFamily="{DynamicResource default}"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Content="游戏版本：" FontFamily="{DynamicResource default}" FontSize="14"/>
+				<ui:ComboBox ValueMemberBinding="{Binding Id}" VerticalAlignment="Center" Width="170" x:Name="verCombo" FontFamily="{DynamicResource default}"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="{DynamicResource default}"  Content="游戏账户：" FontSize="14"/>
+				<ui:ComboBox ValueMemberBinding="{Binding showName}" VerticalAlignment="Center" Width="170" x:Name="accountCombo" FontFamily="{DynamicResource default}" />
+			</StackPanel>
+		</StackPanel>
 	</Grid>
 </UserControl>

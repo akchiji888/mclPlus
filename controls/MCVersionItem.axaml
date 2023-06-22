@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="50"
+             x:Class="mclPlus.controls.MCVersionItem">
+	<Grid>
+		<Image Source="avares://mclPlus/assets/normal.png" x:Name="verIcon" Width="50" Margin="3,3,647,3"/>
+		<TextBlock Margin="55,0,415,0" x:Name="verName" FontFamily="{DynamicResource default}"  VerticalAlignment="Top" Text="1.14.514" FontSize="26" Height="28"/>
+		<TextBlock Margin="55,30,362,0" x:Name="verTime" FontFamily="{DynamicResource default}" VerticalAlignment="Top" Text="1145/12/31 23:59:59"/>
+		<TextBlock x:Name="verType" Margin="388,0,0,0" TextAlignment="Right" FontFamily="{DynamicResource default}" VerticalAlignment="Center" FontSize="30" Text="正式版"/>
+	</Grid>
+</UserControl>

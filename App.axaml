@@ -5,4 +5,10 @@
     <Application.Styles>
         <sty:FluentAvaloniaTheme/>
     </Application.Styles>
+	<Application.Resources>
+		<ResourceDictionary>
+			<FontFamily x:Key="icon">avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets</FontFamily>
+			<FontFamily x:Key="default">avares://mclPlus/assets/font.ttf#MiSans</FontFamily>
+		</ResourceDictionary>
+	</Application.Resources>
 </Application>

@@ -6,40 +6,61 @@
 		xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="mclPlus.MainWindow"
-        Title="MCLX Multi-Platform Version"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="PreferSystemChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		Title="MCLX Multi-Platform Version"
 		Icon="avares://mclPlus/assets/logo.ico">
 	<Grid>
-		<ui:NavigationView x:Name="mainView" IsPaneOpen="False" IsSettingsVisible="False" OpenPaneLength="250">
+		<ui:NavigationView Margin="0,30,0,0" x:Name="mainView" IsPaneOpen="False" IsSettingsVisible="False" OpenPaneLength="250">
 			<ui:NavigationView.MenuItems >
 				<ui:NavigationViewItem Tag="Home" IsSelected="True" Content="主页">
 					<ui:NavigationViewItem.Icon>
-						<ui:FontIcon Glyph="&#xE10F;" FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets"/>
+						<ui:FontIcon Glyph="&#xE10F;" FontFamily="{DynamicResource icon}"/>
 					</ui:NavigationViewItem.Icon>
 				</ui:NavigationViewItem>
-				<ui:NavigationViewItem Content="下载" Tag="DownPage">
+				<ui:NavigationViewItem Content="下载" Tag="Down">
 					<ui:NavigationViewItem.Icon>
-						<ui:FontIcon Glyph="&#xE118;" FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets"/>
+						<ui:FontIcon Glyph="&#xE118;" FontFamily="{DynamicResource icon}"/>
 					</ui:NavigationViewItem.Icon>
 				</ui:NavigationViewItem>
-				<ui:NavigationViewItem Content="管理" Tag="ManagePage">
+				<ui:NavigationViewItem Content="管理" Tag="Manage">
 					<ui:NavigationViewItem.Icon>
-						<ui:FontIcon FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets" Glyph="&#xE178;"/>
+						<ui:FontIcon FontFamily="{DynamicResource icon}" Glyph="&#xE178;"/>
 					</ui:NavigationViewItem.Icon>
 				</ui:NavigationViewItem>
 			</ui:NavigationView.MenuItems>
 			<ui:NavigationView.FooterMenuItems>
 				<ui:NavigationViewItem Content="关于" Tag="Info">
 					<ui:NavigationViewItem.Icon>
-						<ui:FontIcon FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets" Glyph="&#xE946;"/>
+						<ui:FontIcon FontFamily="{DynamicResource icon}" Glyph="&#xE946;"/>
 					</ui:NavigationViewItem.Icon>
 				</ui:NavigationViewItem>
 				<ui:NavigationViewItem Content="设置" Tag="Setting">
 					<ui:NavigationViewItem.Icon>
-						<ui:FontIcon FontFamily="avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets" Glyph="&#xE115;"/>
+						<ui:FontIcon FontFamily="{DynamicResource icon}" Glyph="&#xE115;"/>
 					</ui:NavigationViewItem.Icon>
 				</ui:NavigationViewItem>
 			</ui:NavigationView.FooterMenuItems>
+			<ui:NavigationView.Content>
+				<ui:Frame Margin="50,30,0,0" x:Name="mainFrame"/>
+			</ui:NavigationView.Content>
 		</ui:NavigationView>
-		<ui:Frame Margin="50,0,0,0" x:Name="mainFrame"/>
+		<StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="90">
+			<Button x:Name="minBtn" Width="30" VerticalContentAlignment="Center" Height="30">
+				<ui:FontIcon Glyph="&#xE921;" FontFamily="{DynamicResource icon}" FontSize="8"/>
+			</Button>
+			<Button Width="30" x:Name="maxBtn" VerticalContentAlignment="Center" Height="30">
+				<ui:FontIcon Glyph="&#xE922;" FontFamily="{DynamicResource icon}" FontSize="8"/>
+			</Button>
+			<Button Width="30" x:Name="closeBtn" VerticalContentAlignment="Center" Height="30">
+				<ui:FontIcon Glyph="&#xE8BB;" FontFamily="{DynamicResource icon}" FontSize="8"/>
+			</Button>
+		</StackPanel>
+		<Grid Height="30" Background="Transparent" Margin="0,0,150,0" x:Name="AppTitle" VerticalAlignment="Top">
+			<Image Width="25" Height="25" Source="avares://mclPlus/assets/logo.ico" Margin="5 5" HorizontalAlignment="Left"></Image>
+			<TextBlock Text="MCLX Multi-PlatForm Version" FontFamily="{DynamicResource default}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35 5"></TextBlock>
+		</Grid>
+		<CaptionButtons />
 	</Grid>
 </Window>
