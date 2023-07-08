@@ -7,8 +7,8 @@
     </Application.Styles>
 	<Application.Resources>
 		<ResourceDictionary>
-			<FontFamily x:Key="icon">avares://mclPlus/assets/icon.ttf#Segoe MDL2 Assets</FontFamily>
-			<FontFamily x:Key="default">avares://mclPlus/assets/font.ttf#MiSans</FontFamily>
+			<FontFamily x:Key="icon">resm:mclPlus.assets.icon.ttf?assembly=mclPlus#Segoe MDL2 Assets</FontFamily>
+			<FontFamily x:Key="default">resm:mclPlus.assets.font.ttf?assembly=mclPlus#MiSans</FontFamily>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

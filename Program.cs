@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Media;
 using System;
 
 namespace mclPlus
@@ -18,6 +19,17 @@ namespace mclPlus
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .LogToTrace();
+                .LogToTrace()
+                .With(new FontManagerOptions
+                {
+                    DefaultFamilyName = "resm:mclPlus.assets.font.ttf?assembly=mclPlus#MiSans",
+                    FontFallbacks = new[]
+                    {
+                        new FontFallback
+                        {
+                            FontFamily = new FontFamily("resm:mclPlus.assets.font.ttf?assembly=mclPlus#MiSans")
+                        }
+                    }
+                });
     }
 }

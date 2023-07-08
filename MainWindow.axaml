@@ -10,6 +10,7 @@
 		TransparencyLevelHint="AcrylicBlur"
 		ExtendClientAreaToDecorationsHint="True"
 		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint= "-1"
 		Title="MCLX Multi-Platform Version"
 		Icon="avares://mclPlus/assets/logo.ico">
 	<Grid>

@@ -7,7 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="mclPlus.pages.home">
 	<Grid>
-		<Button Width="282" Height="65" Margin="10,0,0,10" VerticalAlignment="Bottom" Classes="accent">
+		<Button Width="282" x:Name="launchBtn" Height="65" Margin="10,0,0,10" VerticalAlignment="Bottom" Classes="accent">
 			<Button.Content>
 				<StackPanel>
 					<Label Content="未选择版本" x:Name="versionText" Foreground="White" HorizontalContentAlignment="Center" Height="22" FontFamily="{DynamicResource default}" />

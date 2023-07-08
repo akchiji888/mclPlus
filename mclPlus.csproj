@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,6 +6,7 @@
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationIcon>assets\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove=".gitignore" />
@@ -24,9 +25,9 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="assets\fabric.png" />
-    <AvaloniaResource Include="assets\font.ttf" />
+    <EmbeddedResource Include="assets\font.ttf" />
     <AvaloniaResource Include="assets\forge.png" />
-    <AvaloniaResource Include="assets\icon.ttf" />
+    <EmbeddedResource Include="assets\icon.ttf" />
     <AvaloniaResource Include="assets\logo.ico" />
     <AvaloniaResource Include="assets\normal.png" />
     <AvaloniaResource Include="assets\old_alpha.png" />
@@ -35,6 +36,9 @@
     <AvaloniaResource Include="assets\quilt.png" />
     <AvaloniaResource Include="assets\snapshot.jpg" />
     <AvaloniaResource Include="assets\yrj.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <!--This helps with theme dll-s trimming.
@@ -49,8 +53,16 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.21" />
     <PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
-    <PackageReference Include="MinecraftLaunch" Version="1.9.3" />
+    <PackageReference Include="MinecraftLaunch" Version="1.9.4" />
     <PackageReference Include="MinecraftOAuth" Version="1.9.2" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
   </ItemGroup>
+	<ItemGroup>
+		<Content Include="mclx.png" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/icons/mclx.png</LinuxPath>
+		</Content>
+		<Content Include="mclx.desktop" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/applications/mclx.desktop</LinuxPath>
+		</Content>
+	</ItemGroup>
 </Project>
