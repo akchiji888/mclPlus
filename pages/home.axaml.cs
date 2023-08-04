@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Launch;
-using MinecraftLaunch.Modules.Toolkits;
+using MinecraftLaunch.Modules.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,22 +37,10 @@ namespace mclPlus.pages
             {
                 fakeJava
             };
-            if(OperatingSystem.IsWindows() == true)
+            var javas = JavaUtil.GetJavas();
+            foreach (var java in javas)
             {
-#pragma warning disable CA1416 // Validate platform compatibility
-                foreach (var t in JavaToolkit_FindJavasOnly.GetJavas())
-                {
-                    javaList.Add(t);
-                }
-#pragma warning restore CA1416 // Validate platform compatibility
-            }
-            else
-            {
-                var javas = JavaToolkit.GetJavas();
-                foreach (var java in javas)
-                {
-                    javaList.Add(java);
-                }
+                javaList.Add(java);
             }
             javaCombo.Items = javaList;
         }
@@ -60,9 +48,9 @@ namespace mclPlus.pages
         {
             Window data = new()
             {
-                 Width = 300,
-                 Height = 500,
-                 Title = "启动日志——MCLX Multi-Platform Version",
+                Width = 300,
+                Height = 500,
+                Title = "启动日志——MCLX Multi-Platform Version",
             };
             TextBox dataText = new()
             {

@@ -1,7 +1,10 @@
-﻿using Microsoft.VisualBasic;
+﻿using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using Avalonia;
+using Microsoft.VisualBasic;
 using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Launch;
-using MinecraftLaunch.Modules.Toolkits;
+using MinecraftLaunch.Modules.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -243,12 +246,23 @@ namespace mclPlus.pages
             }
         }
         public static int CurrentCoreToolkitIndex = 0;
-        public static List<GameCoreToolkit> GameCoreToolkits = new List<GameCoreToolkit>()
+        public static List<GameCoreUtil> GameCoreToolkits = new List<GameCoreUtil>()
         {
             new()
         };
         public static List<Account> accounts = new List<Account>();
         public static home Home = new();
         public static down Down = new down();
+        public static IBitmap UriToBitmap(string uri)
+        {
+            IBitmap bitmap = null;
+            var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
+            bitmap = new Bitmap(assets.Open(new Uri(uri)));
+            if (bitmap == null)
+            {
+                bitmap = new Bitmap(uri);
+            }
+            return bitmap;
+        }
     }
 }

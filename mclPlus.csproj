@@ -1,62 +1,79 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
-    <TrimMode>copyused</TrimMode>
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    <ApplicationIcon>assets\logo.ico</ApplicationIcon>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove=".gitignore" />
-    <None Remove="assets\fabric.png" />
-    <None Remove="assets\font.ttf" />
-    <None Remove="assets\forge.png" />
-    <None Remove="assets\icon.ttf" />
-    <None Remove="assets\logo.ico" />
-    <None Remove="assets\normal.png" />
-    <None Remove="assets\old_alpha.png" />
-    <None Remove="assets\old_beta.png" />
-    <None Remove="assets\optfine.png" />
-    <None Remove="assets\quilt.png" />
-    <None Remove="assets\snapshot.jpg" />
-    <None Remove="assets\yrj.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AvaloniaResource Include="assets\fabric.png" />
-    <EmbeddedResource Include="assets\font.ttf" />
-    <AvaloniaResource Include="assets\forge.png" />
-    <EmbeddedResource Include="assets\icon.ttf" />
-    <AvaloniaResource Include="assets\logo.ico" />
-    <AvaloniaResource Include="assets\normal.png" />
-    <AvaloniaResource Include="assets\old_alpha.png" />
-    <AvaloniaResource Include="assets\old_beta.png" />
-    <AvaloniaResource Include="assets\optfine.png" />
-    <AvaloniaResource Include="assets\quilt.png" />
-    <AvaloniaResource Include="assets\snapshot.jpg" />
-    <AvaloniaResource Include="assets\yrj.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="assets\logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <!--This helps with theme dll-s trimming.
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
+		<TrimMode>copyused</TrimMode>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<ApplicationIcon>assets\logo.ico</ApplicationIcon>
+		<StartupObject></StartupObject>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove=".gitignore" />
+		<None Remove="assets\fabric.png" />
+		<None Remove="assets\font.ttf" />
+		<None Remove="assets\forge.png" />
+		<None Remove="assets\icon.ttf" />
+		<None Remove="assets\logo.ico" />
+		<None Remove="assets\normal.png" />
+		<None Remove="assets\old_alpha.png" />
+		<None Remove="assets\old_beta.png" />
+		<None Remove="assets\optfine.png" />
+		<None Remove="assets\quilt.png" />
+		<None Remove="assets\snapshot.jpg" />
+		<None Remove="assets\yrj.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="assets\fabric.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="assets\font.ttf" />
+		<EmbeddedResource Include="assets\icon.ttf" />
+		<AvaloniaResource Include="assets\logo.ico" />
+		<EmbeddedResource Include="assets\normal.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="assets\old_alpha.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="assets\old_beta.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="assets\forge.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="assets\optfine.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="assets\quilt.png" />
+		<EmbeddedResource Include="assets\snapshot.jpg">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="assets\yrj.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="assets\logo.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<!--This helps with theme dll-s trimming.
 	If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa.
 	https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
-    <TrimmableAssembly Include="Avalonia.Themes.Fluent" />
-    <TrimmableAssembly Include="Avalonia.Themes.Default" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.21" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.21" />
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.21" />
-    <PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
-    <PackageReference Include="MinecraftLaunch" Version="1.9.4" />
-    <PackageReference Include="MinecraftOAuth" Version="1.9.2" />
-    <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
-  </ItemGroup>
+		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
+		<TrimmableAssembly Include="Avalonia.Themes.Default" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="0.10.21" />
+		<PackageReference Include="Avalonia.Desktop" Version="0.10.21" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.21" />
+		<PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
+		<PackageReference Include="MinecraftLaunch" Version="1.9.5-preview8" />
+		<PackageReference Include="MinecraftOAuth" Version="1.9.3" />
+		<PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
+	</ItemGroup>
 	<ItemGroup>
 		<Content Include="mclx.png" CopyToPublishDirectory="PreserveNewest">
 			<LinuxPath>/usr/share/icons/mclx.png</LinuxPath>

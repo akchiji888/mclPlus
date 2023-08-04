@@ -1,10 +1,30 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="mclPlus.pages.down">
 	<Grid>
-		
+		<TabControl>
+			<TabItem Header="安装Minecraft">
+				<Grid>
+					<ListBox FontFamily="{DynamicResource default}" x:Name="verListBox" Margin="0,0,0,50" SelectionMode="Single" />
+					<StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+						<RadioButton FontFamily="{DynamicResource default}" x:Name="ZhengShi" VerticalAlignment="Bottom" GroupName="verType" Content="正式版"  IsChecked="True"/>
+						<RadioButton FontFamily="{DynamicResource default}" x:Name="KuaiZhao" GroupName="verType" Content="快照版" VerticalAlignment="Bottom" />
+						<RadioButton FontFamily="{DynamicResource default}" x:Name="YuanGu" GroupName="verType" Content="远古版" />
+						<RadioButton FontFamily="{DynamicResource default}" x:Name="YuRenJie" GroupName="verType" Content="愚人节版" />
+					</StackPanel>
+				</Grid>
+			</TabItem>
+			<TabItem x:Name="JavaInstall" FontFamily="{DynamicResource default}" Header="安装Java(仅windows)">
+				
+			</TabItem>
+			<TabItem FontFamily="{DynamicResource default}" Header="下载Mod">
+				
+			</TabItem>
+		</TabControl>
 	</Grid>
 </UserControl>
