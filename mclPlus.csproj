@@ -27,7 +27,7 @@
 	<PropertyGroup>
 		<CFBundleName>mclPlus</CFBundleName>
 		<!-- Also defines .app file name -->
-		<CFBundleDisplayName>MCLX Multi-Platform Version</CFBundleDisplayName>
+		<CFBundleDisplayName>mclPlus</CFBundleDisplayName>
 		<CFBundleIdentifier>org.akchiji888.mcl</CFBundleIdentifier>
 		<CFBundleVersion>0.1.0</CFBundleVersion>
 		<CFBundlePackageType>APPL</CFBundlePackageType>
