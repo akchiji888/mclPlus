@@ -25,7 +25,7 @@
 		<None Remove="assets\yrj.png" />
 	</ItemGroup>
 	<PropertyGroup>
-		<CFBundleName>MCLX Multi-Platform Version</CFBundleName>
+		<CFBundleName>mclPlus</CFBundleName>
 		<!-- Also defines .app file name -->
 		<CFBundleDisplayName>MCLX Multi-Platform Version</CFBundleDisplayName>
 		<CFBundleIdentifier>org.akchiji888.mcl</CFBundleIdentifier>
