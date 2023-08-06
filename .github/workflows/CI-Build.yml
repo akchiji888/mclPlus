@@ -134,7 +134,7 @@ jobs:
          directory: 'bin/Release/net6.0/osx-${{ matrix.arch }}/publish/'
          type: 'zip'
          filename: 'mclPlus_osx-${{ matrix.arch }}-app.zip'
-         path: 'mclPlus.app'
+         path: 'MCLX Multi-Platform Version.app'
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
