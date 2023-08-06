@@ -82,4 +82,8 @@
 			<LinuxPath>/usr/share/applications/mclx.desktop</LinuxPath>
 		</Content>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Include=".github\workflows\CI-Build.yml" />
+	  <None Include=".github\workflows\CI-Check.yml" />
+	</ItemGroup>
 </Project>

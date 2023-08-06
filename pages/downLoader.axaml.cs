@@ -49,7 +49,8 @@ namespace mclPlus.pages
             {
                 Title = "MCLX Multi-Platform Version",
                 Content = $"{VerID.Text}安装完成！",
-                CloseButtonText = "好的"
+                CloseButtonText = "好的",
+                FontFamily = verForge.FontFamily,
             };
             switch (installType)
             {

@@ -11,7 +11,7 @@
 			<Button.Content>
 				<StackPanel>
 					<Label Content="未选择版本" x:Name="versionText" Foreground="White" HorizontalContentAlignment="Center" Height="35" VerticalContentAlignment="Center" FontFamily="{DynamicResource default}" />
-					<Label HorizontalContentAlignment="Center" FontSize="25" VerticalContentAlignment="Center" Height="34" Content="启动游戏" Foreground="White" FontFamily="{DynamicResource default}"/>
+					<Label HorizontalContentAlignment="Center" FontSize="25" VerticalContentAlignment="Top" Height="34" Content="启动游戏" Foreground="White" FontFamily="{DynamicResource default}"/>
 				</StackPanel>
 			</Button.Content>
 		</Button>
@@ -29,6 +29,7 @@
 				<ui:ComboBox ValueMemberBinding="{Binding showName}" VerticalAlignment="Center" Width="170" x:Name="accountCombo" FontFamily="{DynamicResource default}" />
 			</StackPanel>
 		</StackPanel>
+		<TextBlock x:Name="launchData" FontSize="14" FontFamily="{DynamicResource default}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,30"/>
 		<ProgressBar Background="{x:Null}" Maximum="1" VerticalAlignment="Bottom" Margin="10,0,10,10" x:Name="launchBar" Height="10"/>
 	</Grid>
 </UserControl>
