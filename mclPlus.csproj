@@ -24,6 +24,27 @@
 		<None Remove="assets\snapshot.jpg" />
 		<None Remove="assets\yrj.png" />
 	</ItemGroup>
+	<PropertyGroup>
+		<CFBundleName>MCLX Multi-Platform Version</CFBundleName>
+		<!-- Also defines .app file name -->
+		<CFBundleDisplayName>MCLX Multi-Platform Version</CFBundleDisplayName>
+		<CFBundleIdentifier>org.akchiji888.mcl</CFBundleIdentifier>
+		<CFBundleVersion>0.1.0</CFBundleVersion>
+		<CFBundlePackageType>APPL</CFBundlePackageType>
+		<CFBundleSignature>????</CFBundleSignature>
+		<CFBundleExecutable>mclPlus</CFBundleExecutable>
+		<CFBundleIconFile>mclx.icns</CFBundleIconFile>
+		<!-- Will be copied from output directory -->
+		<NSPrincipalClass>NSApplication</NSPrincipalClass>
+		<NSHighResolutionCapable>true</NSHighResolutionCapable>
+		<CFBundleShortVersionString>0.1.0.0</CFBundleShortVersionString>
+		<SignAssembly>True</SignAssembly>
+		<ApplicationIcon>assets\logo.ico</ApplicationIcon>
+		<StartupObject>mclPlus.Program</StartupObject>
+		<Version>0.1.0-alpha</Version>
+		<AssemblyVersion>0.1.0</AssemblyVersion>
+		<FileVersion>0.1.0-alpha</FileVersion>
+	</PropertyGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="assets\fabric.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
