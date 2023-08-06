@@ -175,7 +175,7 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         automatic_release_tag: AutoBuild_${{ env.BRANCH_NAME }}
-        title: "自动构建版本 - ${{ env.BRANCH_NAME }}"
+        title: "Auto Build Release - ${{ env.BRANCH_NAME }}"
         files: |
             *.exe
             *.zip
