@@ -131,15 +131,15 @@ jobs:
     - name: Create Windows ZIP
       uses: thedoctor0/zip-release@0.7.1
       with:
-         directory: 'mclPlus/bin/Release/net6.0/osx-${{ matrix.arch }}/publish/'
+         directory: 'bin/Release/net6.0/osx-${{ matrix.arch }}/publish/'
          type: 'zip'
          filename: 'mclPlus_osx-${{ matrix.arch }}-app.zip'
-         path: 'mclPlus'
+         path: 'mclPlus.app'
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: MacOS
-        path: 'mclPlus/bin/Release/net6.0/osx-${{ matrix.arch }}/publish/*.zip'
+        path: 'bin/Release/net6.0/osx-${{ matrix.arch }}/publish/*.zip'
   Release:
     permissions: write-all
     runs-on: ubuntu-latest
