@@ -42,7 +42,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Windows
-        path: mclPlus/bin/Release/net6.0/win10-${{ matrix.arch }}/*.zip
+        path: bin/Release/net6.0/win10-${{ matrix.arch }}/*.zip
   build_Linux:
     strategy:
       matrix:
@@ -60,7 +60,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Linux
-        path: mclPlus/bin/Release/net6.0/linux-${{ matrix.arch }}/*.zip
+        path: bin/Release/net6.0/linux-${{ matrix.arch }}/*.zip
   build_MacOS:
     strategy:
       matrix:
@@ -78,7 +78,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: MacOS
-        path: mclPlus/bin/Release/net6.0/osx-${{ matrix.arch }}/*.zip
+        path: bin/Release/net6.0/osx-${{ matrix.arch }}/*.zip
   build_Linux_Deb:
     strategy:
       matrix:
@@ -96,7 +96,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Linux_Deb
-        path: mclPlus/bin/Release/net6.0/linux-${{ matrix.arch }}/*.deb
+        path: bin/Release/net6.0/linux-${{ matrix.arch }}/*.deb
   build_Linux_Rpm:
     strategy:
       matrix:
@@ -114,7 +114,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Linux_Rpm
-        path: mclPlus/bin/Release/net6.0/linux-${{ matrix.arch }}/*.rpm
+        path: bin/Release/net6.0/linux-${{ matrix.arch }}/*.rpm
   build_MacOS_App:
     strategy:
       matrix:
