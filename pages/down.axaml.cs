@@ -52,16 +52,16 @@ namespace mclPlus.pages
                 var verList_Yurenjie = coresList.Cores.Where(x => x.ReleaseTime.Month == 4 && x.ReleaseTime.Day == 1).ToList();
                 verListBox.Items = JieXiVerList(verList_Yurenjie);
             };
-            verListBox.SelectionChanged += VerListBox_SelectionChanged;
+            verListBox.Tapped += VerListBox_Tapped;
             #endregion
             SetMCList();
         }
 
-        private async void VerListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+        private async void VerListBox_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                if(verListBox.SelectedItem != null)
+                if (verListBox.SelectedItem != null)
                 {
                     MCVersionItem item = verListBox.SelectedItem as MCVersionItem;
                     var mainFrame = (desktop.MainWindow as MainWindow).mainFrame;
@@ -70,6 +70,7 @@ namespace mclPlus.pages
                     loader.VerID.Text = mcVer;
                     mainFrame.Navigate(typeof(downLoader));
                     mainFrame.Content = loader;
+                    loader.Start.IsEnabled = false;
                     loader.DownLoadBorder.IsEnabled = false;
                     loader.InstallBar.IsIndeterminate = true;
                     loader.Log.Text = "º”‘ÿ÷–°≠°≠";
@@ -117,10 +118,10 @@ namespace mclPlus.pages
                     loader.DownLoadBorder.IsEnabled = true;
                     loader.InstallBar.IsIndeterminate = false;
                     loader.Log.Text = "";
+                    loader.Start.IsEnabled = true;
                 }
             }
         }
-
         private async void SetMCList()
         {
             coresList = await GameCoreInstaller.GetGameCoresAsync();

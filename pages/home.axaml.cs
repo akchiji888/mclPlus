@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
+using MinecraftLaunch.Launch;
 using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Utils;
@@ -28,7 +30,16 @@ namespace mclPlus.pages
                 showAccounts.Add(new(account));
             });
             accountCombo.Items = showAccounts;
-            verCombo.Items = GameCoreToolkits[CurrentCoreToolkitIndex].GetGameCores();
+            var gamecore = new GameCoreUtil();
+            var gameCores = gamecore.GetGameCores().ToList();
+            List<string> temp = new();
+            foreach(var core in gameCores)
+            {
+                temp.Add(core.Id);
+            }
+            verCombo.Items = temp;
+            temp = null;
+            GC.Collect();
             JavaInfo fakeJava = new()
             {
                 JavaPath = "自动选择合适的Java",
@@ -57,10 +68,49 @@ namespace mclPlus.pages
                 IsReadOnly = true,
                 FontFamily = versionText.FontFamily,
             };
+            data.Content = dataText;
+            dataText.Text = ($"[{DateTime.Now}]开始启动");
+            if(verCombo.SelectedIndex != -1)
+            {
+                LaunchConfig lc = new()
+                {
+                    Account = Account.Default,
+                    LauncherName = "MCLX Multi-Platform Version"
+                };
+                if(javaCombo.SelectedIndex == 0)
+                {
+                    JvmConfig jc = new JvmConfig(JavaUtil.GetCorrectOfGameJava(JavaUtil.GetJavas(), (new GameCoreUtil()).GetGameCore(verCombo.Text)).JavaPath)
+                    {
+                        MaxMemory = 2048,
+                    };
+                    lc.JvmConfig = jc;
+                }
+                else
+                {
+                    JvmConfig jc = new JvmConfig(javaCombo.Text)
+                    {
+                        MaxMemory = 2048,
+                    };
+                    lc.JvmConfig = jc;
+                }
+                Task.Run(() =>
+                {
+                    JavaMinecraftLauncher launcher = new(lc, new());
+                    launcher.Launch(verCombo.Text, x =>
+                    {
+                        Dispatcher.UIThread.InvokeAsync(() =>
+                        {
+                            launchBar.Value = x.Item1;
+                            dataText.Text = dataText.Text + "\n" + x.Item2;
+                        });
+                    });
+                });
+                
+            }
         }
         private void VerCombo_SelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
-            versionText.Content = verCombo.Text;
+            versionText.Content = verCombo.SelectedItem as string;
         }
     }
 }

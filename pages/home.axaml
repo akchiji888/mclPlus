@@ -7,11 +7,11 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="mclPlus.pages.home">
 	<Grid>
-		<Button Width="282" x:Name="launchBtn" Height="65" Margin="10,0,0,10" VerticalAlignment="Bottom" Classes="accent">
+		<Button Width="282" x:Name="launchBtn" Height="80" Margin="0,0,10,30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Classes="accent">
 			<Button.Content>
 				<StackPanel>
-					<Label Content="未选择版本" x:Name="versionText" Foreground="White" HorizontalContentAlignment="Center" Height="22" FontFamily="{DynamicResource default}" />
-					<Label HorizontalContentAlignment="Center" FontSize="25" VerticalContentAlignment="Top" Height="34" Content="启动游戏" Foreground="White" FontFamily="{DynamicResource default}"/>
+					<Label Content="未选择版本" x:Name="versionText" Foreground="White" HorizontalContentAlignment="Center" Height="35" VerticalContentAlignment="Center" FontFamily="{DynamicResource default}" />
+					<Label HorizontalContentAlignment="Center" FontSize="25" VerticalContentAlignment="Center" Height="34" Content="启动游戏" Foreground="White" FontFamily="{DynamicResource default}"/>
 				</StackPanel>
 			</Button.Content>
 		</Button>
@@ -22,12 +22,13 @@
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Content="游戏版本：" FontFamily="{DynamicResource default}" FontSize="14"/>
-				<ui:ComboBox ValueMemberBinding="{Binding Id}" VerticalAlignment="Center" Width="170" x:Name="verCombo" FontFamily="{DynamicResource default}"/>
+				<ui:ComboBox VerticalAlignment="Center" Width="170" x:Name="verCombo" FontFamily="{DynamicResource default}"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="{DynamicResource default}"  Content="游戏账户：" FontSize="14"/>
 				<ui:ComboBox ValueMemberBinding="{Binding showName}" VerticalAlignment="Center" Width="170" x:Name="accountCombo" FontFamily="{DynamicResource default}" />
 			</StackPanel>
 		</StackPanel>
+		<ProgressBar Background="{x:Null}" Maximum="1" VerticalAlignment="Bottom" Margin="10,0,10,10" x:Name="launchBar" Height="10"/>
 	</Grid>
 </UserControl>
