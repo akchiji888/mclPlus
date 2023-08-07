@@ -11,7 +11,7 @@ namespace mclPlus
     {
         public MainWindow()
         {
-            InitializeComponent(true,false);
+            InitializeComponent();
             mainView.SelectionChanged += MainView_SelectionChanged;
             APIManager.Current.Host = APIManager.Mcbbs.Host;
             AppTitle.PointerPressed += AppTitle_PointerPressed;
