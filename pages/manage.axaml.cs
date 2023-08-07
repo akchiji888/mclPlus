@@ -2,7 +2,7 @@ using Avalonia.Controls;
 
 namespace mclPlus.pages
 {
-    public partial class manage : UserControl
+    partial class manage : UserControl
     {
         public manage()
         {

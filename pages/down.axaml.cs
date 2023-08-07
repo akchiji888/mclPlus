@@ -16,7 +16,7 @@ using static mclPlus.pages.MCLClasses;
 
 namespace mclPlus.pages
 {
-    public partial class down : UserControl
+    partial class down : UserControl
     {
         GameCoresEntity coresList = new();
         public down()
@@ -33,24 +33,24 @@ namespace mclPlus.pages
             }
             #endregion
             #region ÊÂ¼þ&°ó¶¨
-            ZhengShi.Checked += (c, x) =>
+            ZhengShi.IsCheckedChanged += (c, x) =>
             {
                 SetMCList();
             };
-            KuaiZhao.Checked += (c, x) =>
+            KuaiZhao.IsCheckedChanged += (c, x) =>
             {
                 var verList_KuaiZhao = coresList.Cores.Where(x => x.Type == "snapshot" && (x.ReleaseTime.Month != 4 && x.ReleaseTime.Day != 1)).ToList();
-                verListBox.Items = JieXiVerList(verList_KuaiZhao);
+                verListBox.ItemsSource = JieXiVerList(verList_KuaiZhao);
             };
-            YuanGu.Checked += (c, x) =>
+            YuanGu.IsCheckedChanged += (c, x) =>
             {
                 var verList_YuanGu = coresList.Cores.Where(x => x.Type == "old_alpha" || x.Type == "old_beta").ToList();
-                verListBox.Items = JieXiVerList(verList_YuanGu);
+                verListBox.ItemsSource = JieXiVerList(verList_YuanGu);
             };
-            YuRenJie.Checked += (c, x) =>
+            YuRenJie.IsCheckedChanged += (c, x) =>
             {
                 var verList_Yurenjie = coresList.Cores.Where(x => x.ReleaseTime.Month == 4 && x.ReleaseTime.Day == 1).ToList();
-                verListBox.Items = JieXiVerList(verList_Yurenjie);
+                verListBox.ItemsSource = JieXiVerList(verList_Yurenjie);
             };
             verListBox.Tapped += VerListBox_Tapped;
             #endregion
@@ -105,10 +105,10 @@ namespace mclPlus.pages
                     fabric.Insert(0, fakeFabric);
                     optifine.Insert(0, fakeOptiFine);
                     quilt.Insert(0, fakeQuilt);
-                    loader.verForge.Items = forge;
-                    loader.verFabric.Items = fabric;
-                    loader.verOpt.Items = optifine;
-                    loader.verQuilt.Items = quilt;
+                    loader.verForge.ItemsSource = forge;
+                    loader.verFabric.ItemsSource = fabric;
+                    loader.verOpt.ItemsSource = optifine;
+                    loader.verQuilt.ItemsSource = quilt;
                     loader.verForge.SelectedIndex = 0;
                     loader.verQuilt.SelectedIndex = 0;
                     loader.verOpt.SelectedIndex = 0;
@@ -126,13 +126,12 @@ namespace mclPlus.pages
         {
             coresList = await GameCoreInstaller.GetGameCoresAsync();
             var verList_release = coresList.Cores.Where(x => x.Type == "release").ToList();
-            verListBox.Items = null;
-            verListBox.Items = JieXiVerList(verList_release);
+            verListBox.ItemsSource = null;
+            verListBox.ItemsSource = JieXiVerList(verList_release);
         }
         private List<controls.MCVersionItem> JieXiVerList(List<GameCoreEmtity>? gameList)
         {
-            IAssetLoader assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            List<controls.MCVersionItem> items = new();
+            List<controls.MCVersionItem> ItemsSource = new();
             foreach (var game in gameList)
             {
                 controls.MCVersionItem item = new();
@@ -166,9 +165,9 @@ namespace mclPlus.pages
                         item.verIcon.Source = UriToBitmap("resm:mclPlus.assets.old_beta.png");
                         break;
                 }
-                items.Add(item);
+                ItemsSource.Add(item);
             }
-            return items;
+            return ItemsSource;
         }
     }
 }

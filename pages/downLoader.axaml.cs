@@ -329,7 +329,7 @@ namespace mclPlus.pages
                     });
                 }
             });
-            verFabricAPI.Items = files;
+            verFabricAPI.ItemsSource = files;
         }
     }
 }

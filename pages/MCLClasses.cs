@@ -43,11 +43,10 @@ namespace mclPlus.pages
         public static List<Account> accounts = new List<Account>();
         public static home Home = new();
         public static down Down = new down();
-        public static IBitmap UriToBitmap(string uri)
+        public static Bitmap UriToBitmap(string uri)
         {
-            IBitmap bitmap = null;
-            var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            bitmap = new Bitmap(assets.Open(new Uri(uri)));
+            Bitmap bitmap = null;
+            bitmap = new Bitmap(AssetLoader.Open(new Uri(uri)));
             if (bitmap == null)
             {
                 bitmap = new Bitmap(uri);

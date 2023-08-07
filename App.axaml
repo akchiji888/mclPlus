@@ -1,9 +1,10 @@
 <Application xmlns="https://github.com/avaloniaui"
 			 xmlns:sty="using:FluentAvalonia.Styling"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="mclPlus.App">
+             x:Class="mclPlus.App"
+			 RequestedThemeVariant="Light">
     <Application.Styles>
-		<sty:FluentAvaloniaTheme/>
+		<sty:FluentAvaloniaTheme PreferUserAccentColor="True"/>
     </Application.Styles>
 	<Application.Resources>
 		<ResourceDictionary>

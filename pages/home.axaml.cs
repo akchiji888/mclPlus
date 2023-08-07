@@ -16,11 +16,11 @@ using static mclPlus.pages.MCLClasses;
 
 namespace mclPlus.pages
 {
-    public partial class home : UserControl
+    partial class home : UserControl
     {
         public home()
         {
-            InitializeComponent();
+            InitializeComponent();            
             #region ÊÂ¼þ°ó¶¨
             verCombo.SelectionChanged += VerCombo_SelectionChanged;
             launchBtn.Click += LaunchBtn_Click;
@@ -30,7 +30,7 @@ namespace mclPlus.pages
             {
                 showAccounts.Add(new(account));
             });
-            accountCombo.Items = showAccounts;
+            accountCombo.ItemsSource = showAccounts;
             var gamecore = new GameCoreUtil();
             var gameCores = gamecore.GetGameCores().ToList();
             List<string> temp = new();
@@ -38,7 +38,7 @@ namespace mclPlus.pages
             {
                 temp.Add(core.Id);
             }
-            verCombo.Items = temp;
+            verCombo.ItemsSource = temp;
             temp = null;
             GC.Collect();
             JavaInfo fakeJava = new()
@@ -54,7 +54,7 @@ namespace mclPlus.pages
             {
                 javaList.Add(java);
             }
-            javaCombo.Items = javaList;
+            javaCombo.ItemsSource = javaList;
             javaCombo.SelectedIndex = 0;
         }
         private async void LaunchBtn_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

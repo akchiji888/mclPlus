@@ -24,17 +24,17 @@
 				<TextBlock Height="31" FontSize="24" TextAlignment="Center" Text="Optfine版本:"  FontFamily="{DynamicResource default}" Margin="80,255,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<TextBlock Height="30" FontSize="24" TextAlignment="Center" Text="Quilt版本:"  FontFamily="{DynamicResource default}" Margin="80,315,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<TextBlock VerticalAlignment="Top" FontSize="24" x:Name="VerID" HorizontalAlignment="Right" Margin="0,15,20,0" Text="1.14.514" FontFamily="{DynamicResource default}" />
-				<!-- ui:ComboBox -->
-				<ui:ComboBox SelectedIndex="0" x:Name="verForge" ValueMemberBinding="{Binding ForgeVersion}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,76,20,0"/>
-				<ui:ComboBox SelectedIndex="0" x:Name="verFabric" ValueMemberBinding="{Binding Loader.Version}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,136,20,0"/>
-				<ui:ComboBox SelectedIndex="0" x:Name="verFabricAPI" ValueMemberBinding="{Binding FileName}" IsEnabled="False" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="35" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,196,20,0"/>
-				<ui:ComboBox SelectedIndex="0" x:Name="verOpt" ValueMemberBinding="{Binding FileName}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,257,20,0"/>
-				<ui:ComboBox SelectedIndex="0" x:Name="verQuilt" ValueMemberBinding="{Binding Loader.Version}"  FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,317,20,0"/>
+				<!-- ui:FAComboBox -->
+				<ui:FAComboBox SelectedIndex="0" x:Name="verForge" DisplayMemberBinding="{Binding ForgeVersion}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,76,20,0"/>
+				<ui:FAComboBox SelectedIndex="0" x:Name="verFabric" DisplayMemberBinding="{Binding Loader.Version}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,136,20,0"/>
+				<ui:FAComboBox SelectedIndex="0" x:Name="verFabricAPI" DisplayMemberBinding="{Binding FileName}" IsEnabled="False" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="35" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,196,20,0"/>
+				<ui:FAComboBox SelectedIndex="0" x:Name="verOpt" DisplayMemberBinding="{Binding FileName}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,257,20,0"/>
+				<ui:FAComboBox SelectedIndex="0" x:Name="verQuilt" DisplayMemberBinding="{Binding Loader.Version}"  FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,317,20,0"/>
 			</Grid>
 		</Border>
 		<ProgressBar Background="{x:Null}" Maximum="1" VerticalAlignment="Bottom" Margin="10,0,10,10" x:Name="InstallBar" Height="10"/>
-		<ui:Button HorizontalAlignment="Right" x:Name="Start" VerticalAlignment="Bottom" Classes="accent" Width="140" Content="开始安装" FontFamily="{DynamicResource default}" Height="40" Margin="0,0,10,25"/>
-		<ui:Button HorizontalAlignment="Right" x:Name="Back" VerticalAlignment="Bottom"  Width="140" Content="返回" FontFamily="{DynamicResource default}" Height="40" Margin="0,0,160,25"/>
+		<Button HorizontalAlignment="Right" x:Name="Start" VerticalAlignment="Bottom" Classes="accent" Width="140" Content="开始安装" FontFamily="{DynamicResource default}" Height="40" Margin="0,0,10,25"/>
+		<Button HorizontalAlignment="Right" x:Name="Back" VerticalAlignment="Bottom"  Width="140" Content="返回" FontFamily="{DynamicResource default}" Height="40" Margin="0,0,160,25"/>
 		<TextBlock HorizontalAlignment="Left" x:Name="Log" VerticalAlignment="Bottom" Margin="10,0,0,25"  Text="安装进度：" FontSize="16"/>
 	</Grid>
 </UserControl>
