@@ -24,13 +24,6 @@ namespace mclPlus
                 .With(new FontManagerOptions
                 {
                     DefaultFamilyName = "resm:mclPlus.assets.font.ttf?assembly=mclPlus#MiSans",
-                    FontFallbacks = new[]
-                    {
-                        new FontFallback
-                        {
-                            FontFamily = new FontFamily("resm:mclPlus.assets.font.ttf?assembly=mclPlus#MiSans")
-                        }
-                    }
                 });
     }
 }
