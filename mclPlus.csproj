@@ -23,6 +23,8 @@
 		<None Remove="assets\quilt.png" />
 		<None Remove="assets\snapshot.jpg" />
 		<None Remove="assets\yrj.png" />
+		<None Remove="mclx.icns" />
+		<None Remove="start.sh" />
 	</ItemGroup>
 	<PropertyGroup>
 		<CFBundleName>mclPlus</CFBundleName>
@@ -77,6 +79,12 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Content Include="assets\logo.ico" />
+		<Content Include="mclx.icns">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="start.sh">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<!--This helps with theme dll-s trimming.
@@ -98,9 +106,11 @@
 	<ItemGroup>
 		<Content Include="mclx.png" CopyToPublishDirectory="PreserveNewest">
 			<LinuxPath>/usr/share/icons/mclx.png</LinuxPath>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="mclx.desktop" CopyToPublishDirectory="PreserveNewest">
 			<LinuxPath>/usr/share/applications/mclx.desktop</LinuxPath>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
