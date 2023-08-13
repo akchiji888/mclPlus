@@ -79,8 +79,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Content Include="assets\logo.ico" />
-		<Content Include="mclx.icns">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		<Content Include="mclx.icns" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/applications/wonderlab.desktop</LinuxPath>
 		</Content>
 		<Content Include="start.sh">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
