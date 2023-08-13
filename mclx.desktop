@@ -2,7 +2,7 @@
 Name=MCLX Multi-Platform Version
 Type=Application
 Terminal=false
-Exec=/usr/share/mclPlus/mclPlus
+Exec=/usr/share/mclPlus/start.sh
 Icon=/usr/share/icons/mclx.png
 Categories=Game;ActionGame;AdventureGame;Simulation;
 Keywords=game;minecraft;launcher;mc;akchiji888;MCLX;
