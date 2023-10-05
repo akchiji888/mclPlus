@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace mclPlus.pages
 {
@@ -43,6 +44,7 @@ namespace mclPlus.pages
         public static List<Account> accounts = new List<Account>();
         public static home Home = new();
         public static down Down = new down();
+        public static manage Manage = new manage();
         public static Bitmap UriToBitmap(string uri)
         {
             Bitmap bitmap = null;
@@ -52,6 +54,24 @@ namespace mclPlus.pages
                 bitmap = new Bitmap(uri);
             }
             return bitmap;
+        }
+        public class SettingsFile
+        {
+            public List<Account> accounts { get; set; }
+            public int maxMem { get; set; }
+            public int verComboIndex { get; set; }
+            public int javaComboIndex { get; set; }
+            public int accountComboIndex { get; set; }
+
+        }
+        public static string ExtractAndDecodeYggdrasilUrl(string str)
+        {
+            var match = Regex.Match(str, "https.*");
+            if (match.Success)
+            {
+                return HttpUtility.UrlDecode(match.Value);
+            }
+            throw new ArgumentException();
         }
     }
 }

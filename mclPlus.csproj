@@ -9,6 +9,9 @@
 		<ApplicationIcon>assets\logo.ico</ApplicationIcon>
 		<StartupObject></StartupObject>
 	</PropertyGroup>
+	<PropertyGroup>
+		<UseAppHost>true</UseAppHost>
+	</PropertyGroup>
 	<ItemGroup>
 		<None Remove=".gitignore" />
 		<None Remove="assets\fabric.png" />
@@ -16,6 +19,7 @@
 		<None Remove="assets\forge.png" />
 		<None Remove="assets\icon.ttf" />
 		<None Remove="assets\logo.ico" />
+		<None Remove="assets\neoforge.png" />
 		<None Remove="assets\normal.png" />
 		<None Remove="assets\old_alpha.png" />
 		<None Remove="assets\old_beta.png" />
@@ -29,7 +33,7 @@
 	<PropertyGroup>
 		<CFBundleName>mclPlus</CFBundleName>
 		<!-- Also defines .app file name -->
-		<CFBundleDisplayName>mclPlus</CFBundleDisplayName>
+		<CFBundleDisplayName>MCLX Multi-Platform Version</CFBundleDisplayName>
 		<CFBundleIdentifier>org.akchiji888.mcl</CFBundleIdentifier>
 		<CFBundleVersion>0.1.0</CFBundleVersion>
 		<CFBundlePackageType>APPL</CFBundlePackageType>
@@ -54,6 +58,7 @@
 		<EmbeddedResource Include="assets\font.ttf" />
 		<EmbeddedResource Include="assets\icon.ttf" />
 		<AvaloniaResource Include="assets\logo.ico" />
+		<EmbeddedResource Include="assets\neoforge.png" />
 		<EmbeddedResource Include="assets\normal.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
@@ -80,7 +85,6 @@
 	<ItemGroup>
 		<Content Include="assets\logo.ico" />
 		<Content Include="mclx.icns" CopyToPublishDirectory="PreserveNewest">
-			<LinuxPath>/usr/share/applications/mclPlus.desktop</LinuxPath>
 		</Content>
 		<Content Include="start.sh">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -99,8 +103,9 @@
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.2" />
 		<PackageReference Include="FluentAvaloniaUI" Version="2.0.0" />
-		<PackageReference Include="MinecraftLaunch" Version="1.9.5" />
-		<PackageReference Include="MinecraftOAuth" Version="1.9.3" />
+		<PackageReference Include="MinecraftLaunch" Version="1.9.6-preview7" />
+		<PackageReference Include="MinecraftLaunch.Skin" Version="1.0.0" />
+		<PackageReference Include="MinecraftOAuth" Version="1.9.6-preview5" />
 		<PackageReference Include="Dotnet.Bundle" Version="*" />
 	</ItemGroup>
 	<ItemGroup>
@@ -109,7 +114,7 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="mclx.desktop" CopyToPublishDirectory="PreserveNewest">
-			<LinuxPath>/usr/share/applications/mclx.desktop</LinuxPath>
+			<LinuxPath>/usr/share/applications/mclPlus.desktop</LinuxPath>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>

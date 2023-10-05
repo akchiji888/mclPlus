@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="244"
+             x:Class="mclPlus.controls.AccontCard">
+	<Border BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+		<StackPanel>
+			<Image x:Name="AccountImage" Height="200" />
+			<TextBlock x:Name="AccountName" FontSize="18" Text="0123456789123456" Width="192"/>
+			<TextBlock Foreground="Gray" x:Name="AccountType" Text="Microsoft账户" Width="192" FontFamily="Microsoft YaHei UI Light"  />
+		</StackPanel>
+	</Border>
+</UserControl>

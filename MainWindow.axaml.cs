@@ -1,8 +1,11 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using FluentAvalonia.UI.Controls;
 using mclPlus.pages;
 using MinecraftLaunch.Modules.Models.Download;
+using MinecraftLaunch.Modules.Watcher;
+using MinecraftOAuth.Authenticator;
 using static mclPlus.pages.MCLClasses;
 
 namespace mclPlus
@@ -11,7 +14,8 @@ namespace mclPlus
     {
         public MainWindow()
         {
-            InitializeComponent();//2
+            InitializeComponent();
+            DragDrop.SetAllowDrop(this, true);
             mainView.SelectionChanged += MainView_SelectionChanged;
             APIManager.Current.Host = APIManager.Mcbbs.Host;
             AppTitle.PointerPressed += AppTitle_PointerPressed;
@@ -33,8 +37,16 @@ namespace mclPlus
                 maxBtn.IsVisible = true;
                 this.WindowState = WindowState.Normal;
             };
+            GameCoresWatcher watcher = new(".minecraft");
+            watcher.GameCoresChanged += (_, x) =>
+            {
+                var Index = Home.verCombo.SelectedIndex;
+                Home.verCombo.ItemsSource = GameCoreToolkits[CurrentCoreToolkitIndex].GetGameCores();
+                Home.verCombo.SelectedIndex = Index;
+            };
+            watcher.StartWatch();
+            AddHandler(DragDrop.DropEvent, Drop);
         }
-
         private void MainView_SelectionChanged(object? sender, FluentAvalonia.UI.Controls.NavigationViewSelectionChangedEventArgs e)
         {
             var selectedItem = (NavigationViewItem)e.SelectedItem;
@@ -48,11 +60,24 @@ namespace mclPlus
                     mainFrame.Navigate(typeof (down));
                     mainFrame.Content = Down;
                     break;
+                case "Manage":
+                    mainFrame.Navigate(typeof(manage));
+                    mainFrame.Content = Manage;
+                    break;
             }
         }
         private void AppTitle_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
         {
             BeginMoveDrag(e);
+        }
+        private void Drop(object? sender, DragEventArgs e)
+        {
+            var text = e.Data.GetText();
+            if (text.Contains("authlib-injector"))
+            {
+                var serverURI = ExtractAndDecodeYggdrasilUrl(text);
+                
+            }
         }
     }
 }

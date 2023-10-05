@@ -14,8 +14,8 @@
 					<StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
 						<RadioButton FontFamily="{DynamicResource default}" x:Name="ZhengShi" VerticalAlignment="Bottom" GroupName="verType" Content="正式版"  IsChecked="True"/>
 						<RadioButton FontFamily="{DynamicResource default}" x:Name="KuaiZhao" GroupName="verType" Content="快照版" VerticalAlignment="Bottom" />
-						<RadioButton FontFamily="{DynamicResource default}" x:Name="YuanGu" GroupName="verType" Content="远古版" />
-						<RadioButton FontFamily="{DynamicResource default}" x:Name="YuRenJie" GroupName="verType" Content="愚人节版" />
+						<RadioButton FontFamily="{DynamicResource default}" x:Name="YuanGu" VerticalAlignment="Bottom" GroupName="verType" Content="远古版" />
+						<RadioButton FontFamily="{DynamicResource default}" x:Name="YuRenJie" VerticalAlignment="Bottom" GroupName="verType" Content="愚人节版" />
 					</StackPanel>
 				</Grid>
 			</TabItem>

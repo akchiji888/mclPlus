@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="mclPlus.pages.downLoader">
 	<Grid>
-		<Border x:Name="DownLoadBorder" BorderThickness="1" BorderBrush="Black" CornerRadius="5" VerticalAlignment="Top" Margin="10,10" Height="355">
+		<Border x:Name="DownLoadBorder" BorderThickness="1" BorderBrush="Black" CornerRadius="5" VerticalAlignment="Top" Margin="10,10" Height="455">
 			<Grid>
 				<!-- Icon -->
 				<Image Width="48" Height="30" Source="resm:mclPlus.assets.normal.png" Margin="20,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -16,6 +16,7 @@
 				<Image Width="48" Height="30" Source="resm:mclPlus.assets.fabric.png" Margin="20,195,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<Image Width="48" Height="30" Source="resm:mclPlus.assets.optfine.png" Margin="20,255,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<Image Width="48" Height="30" Source="resm:mclPlus.assets.quilt.png" Margin="20,315,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+				<Image Width="48" Height="30" Source="resm:mclPlus.assets.neoforge.png" Margin="20,375,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<!-- TextBlock -->
 				<TextBlock Height="30" FontSize="24" TextAlignment="Center" Text="Minecraft版本:"  FontFamily="{DynamicResource default}" Margin="80,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<TextBlock Height="31" FontSize="24" TextAlignment="Center" Text="Forge版本:"  FontFamily="{DynamicResource default}" Margin="80,75,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -23,6 +24,7 @@
 				<TextBlock Height="30" FontSize="24" TextAlignment="Center" Text="Fabric API版本"  FontFamily="{DynamicResource default}" Margin="80,195,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<TextBlock Height="31" FontSize="24" TextAlignment="Center" Text="Optfine版本:"  FontFamily="{DynamicResource default}" Margin="80,255,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<TextBlock Height="30" FontSize="24" TextAlignment="Center" Text="Quilt版本:"  FontFamily="{DynamicResource default}" Margin="80,315,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+				<TextBlock Height="31" FontSize="24" TextAlignment="Center" Text="NeoForge版本:"  FontFamily="{DynamicResource default}" Margin="80,375,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 				<TextBlock VerticalAlignment="Top" FontSize="24" x:Name="VerID" HorizontalAlignment="Right" Margin="0,15,20,0" Text="1.14.514" FontFamily="{DynamicResource default}" />
 				<!-- ui:FAComboBox -->
 				<ui:FAComboBox SelectedIndex="0" x:Name="verForge" DisplayMemberBinding="{Binding ForgeVersion}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,76,20,0"/>
@@ -30,6 +32,7 @@
 				<ui:FAComboBox SelectedIndex="0" x:Name="verFabricAPI" DisplayMemberBinding="{Binding FileName}" IsEnabled="False" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="35" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,196,20,0"/>
 				<ui:FAComboBox SelectedIndex="0" x:Name="verOpt" DisplayMemberBinding="{Binding FileName}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,257,20,0"/>
 				<ui:FAComboBox SelectedIndex="0" x:Name="verQuilt" DisplayMemberBinding="{Binding Loader.Version}"  FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,317,20,0"/>
+				<ui:FAComboBox SelectedIndex="0" x:Name="verNeo" DisplayMemberBinding="{Binding NeoForgeVersion}" FontFamily="{DynamicResource default}" FontSize="16" Width="165" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="0,377,20,0"/>
 			</Grid>
 		</Border>
 		<ProgressBar Background="{x:Null}" Maximum="1" VerticalAlignment="Bottom" Margin="10,0,10,10" x:Name="InstallBar" Height="10"/>

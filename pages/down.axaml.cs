@@ -5,13 +5,16 @@ using Avalonia.Logging;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Avalonia.Threading;
 using mclPlus.controls;
 using MinecraftLaunch.Modules.Installer;
 using MinecraftLaunch.Modules.Models.Install;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using static mclPlus.pages.MCLClasses;
 
 namespace mclPlus.pages
@@ -23,11 +26,12 @@ namespace mclPlus.pages
         {
             #region 初始化
             InitializeComponent();
+            SetMCList();
             ZhengShi.Initialized += (c, x) =>
             {
                 ZhengShi.IsChecked = true;
             };
-            if(OperatingSystem.IsWindows() == false)
+            if (OperatingSystem.IsWindows() == false)
             {
                 JavaInstall.IsEnabled = false;
             }
@@ -35,26 +39,37 @@ namespace mclPlus.pages
             #region 事件&绑定
             ZhengShi.IsCheckedChanged += (c, x) =>
             {
-                SetMCList();
+                if (ZhengShi.IsChecked == true)
+                {
+                    SetMCList();
+                }
             };
             KuaiZhao.IsCheckedChanged += (c, x) =>
             {
-                var verList_KuaiZhao = coresList.Cores.Where(x => x.Type == "snapshot" && (x.ReleaseTime.Month != 4 && x.ReleaseTime.Day != 1)).ToList();
-                verListBox.ItemsSource = JieXiVerList(verList_KuaiZhao);
+                if (KuaiZhao.IsChecked == true)
+                {
+                    var verList_KuaiZhao = coresList.Cores.Where(x => x.Type == "snapshot" && (x.ReleaseTime.Month != 4 && x.ReleaseTime.Day != 1)).ToList();
+                    verListBox.ItemsSource = JieXiVerList(verList_KuaiZhao);
+                }
             };
             YuanGu.IsCheckedChanged += (c, x) =>
             {
-                var verList_YuanGu = coresList.Cores.Where(x => x.Type == "old_alpha" || x.Type == "old_beta").ToList();
-                verListBox.ItemsSource = JieXiVerList(verList_YuanGu);
+                if (YuanGu.IsChecked == true)
+                {
+                    var verList_YuanGu = coresList.Cores.Where(x => x.Type == "old_alpha" || x.Type == "old_beta").ToList();
+                    verListBox.ItemsSource = JieXiVerList(verList_YuanGu);
+                }
             };
             YuRenJie.IsCheckedChanged += (c, x) =>
             {
-                var verList_Yurenjie = coresList.Cores.Where(x => x.ReleaseTime.Month == 4 && x.ReleaseTime.Day == 1).ToList();
-                verListBox.ItemsSource = JieXiVerList(verList_Yurenjie);
+                if (YuRenJie.IsChecked == true)
+                {
+                    var verList_Yurenjie = coresList.Cores.Where(x => x.ReleaseTime.Month == 4 && x.ReleaseTime.Day == 1).ToList();
+                    verListBox.ItemsSource = JieXiVerList(verList_Yurenjie);
+                }
             };
             verListBox.Tapped += VerListBox_Tapped;
             #endregion
-            SetMCList();
         }
 
         private async void VerListBox_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -97,22 +112,37 @@ namespace mclPlus.pages
                             Version = "未选择"
                         }
                     };
+                    NeoForgeInstallEntity fakeNeoForge = new()
+                    {
+                        NeoForgeVersion = "未选择"
+                    };
                     var forge = (await ForgeInstaller.GetForgeBuildsOfVersionAsync(mcVer)).ToList();
                     var fabric = (await FabricInstaller.GetFabricBuildsByVersionAsync(mcVer)).ToList();
                     var optifine = (await OptiFineInstaller.GetOptiFineBuildsFromMcVersionAsync(mcVer)).ToList();
                     var quilt = (await QuiltInstaller.GetQuiltBuildsByVersionAsync(mcVer)).ToList();
+                    List<NeoForgeInstallEntity> neo;
+                    await Task.Run(() =>
+                    {
+                        neo = NeoForgeInstaller.GetNeoForgesOfVersionAsync(mcVer).ToList();
+                        neo.Insert(0, fakeNeoForge);
+                        Dispatcher.UIThread.Invoke(() =>
+                        {
+                            loader.verNeo.ItemsSource = neo;
+                        });
+                    });
                     forge.Insert(0, fakeForge);
                     fabric.Insert(0, fakeFabric);
                     optifine.Insert(0, fakeOptiFine);
-                    quilt.Insert(0, fakeQuilt);
+                    quilt.Insert(0, fakeQuilt);                    
                     loader.verForge.ItemsSource = forge;
                     loader.verFabric.ItemsSource = fabric;
                     loader.verOpt.ItemsSource = optifine;
-                    loader.verQuilt.ItemsSource = quilt;
+                    loader.verQuilt.ItemsSource = quilt;                    
                     loader.verForge.SelectedIndex = 0;
                     loader.verQuilt.SelectedIndex = 0;
                     loader.verOpt.SelectedIndex = 0;
                     loader.verFabric.SelectedIndex = 0;
+                    loader.verNeo.SelectedIndex = 0;
                     loader.InitFabricAPI(mcVer);
                     #endregion
                     loader.DownLoadBorder.IsEnabled = true;
