@@ -4,7 +4,7 @@ using Avalonia;
 using Microsoft.VisualBasic;
 using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Launch;
-using MinecraftLaunch.Modules.Utils;
+using MinecraftLaunch.Modules.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -40,8 +40,7 @@ namespace mclPlus.pages
         public static List<GameCoreUtil> GameCoreToolkits = new List<GameCoreUtil>()
         {
             new()
-        };
-        public static List<Account> accounts = new List<Account>();
+        }; 
         public static home Home = new();
         public static down Down = new down();
         public static manage Manage = new manage();
@@ -73,5 +72,16 @@ namespace mclPlus.pages
             }
             throw new ArgumentException();
         }
+
+        public static bool IsSpecialChar(string str)
+        {
+            Regex regExp = new Regex("[ \\[ \\] \\^ \\-_*×――(^)$%~!＠@＃#$…&%￥—+=<>《》!！??？:：•`·、。，；,.;/\'\"{}（）‘’“”-]");
+            if (regExp.IsMatch(str))
+            {
+                return true;
+            }
+            return false;
+        }
+        
     }
 }

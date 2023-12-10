@@ -98,14 +98,13 @@
 		<TrimmableAssembly Include="Avalonia.Themes.Default" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.0.2" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.0.2" />
+		<PackageReference Include="Avalonia" Version="11.0.5" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.0.5" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.2" />
-		<PackageReference Include="FluentAvaloniaUI" Version="2.0.0" />
-		<PackageReference Include="MinecraftLaunch" Version="1.9.6-preview7" />
-		<PackageReference Include="MinecraftLaunch.Skin" Version="1.0.0" />
-		<PackageReference Include="MinecraftOAuth" Version="1.9.6-preview5" />
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
+		<PackageReference Include="FluentAvaloniaUI" Version="2.0.4" />
+		<PackageReference Include="MinecraftLaunch" Version="2.0.1" />
+		<PackageReference Include="MinecraftOAuth" Version="2.0.1" />
 		<PackageReference Include="Dotnet.Bundle" Version="*" />
 	</ItemGroup>
 	<ItemGroup>
@@ -121,5 +120,19 @@
 	<ItemGroup>
 	  <None Include=".github\workflows\CI-Build.yml" />
 	  <None Include=".github\workflows\CI-Check.yml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="Common">
+	    <HintPath>assets\Common.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Storage">
+	    <HintPath>assets\Storage.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Storage.Standard">
+	    <HintPath>assets\Storage.Standard.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="pages\AddAccounts.axaml" />
 	</ItemGroup>
 </Project>

@@ -34,6 +34,11 @@
 				</ui:NavigationViewItem>
 			</ui:NavigationView.MenuItems>
 			<ui:NavigationView.FooterMenuItems>
+				<ui:NavigationViewItem Content="MCL账户" Tag="MCLAccount">
+					<ui:NavigationViewItem.IconSource>
+						<ui:FontIconSource FontFamily="{DynamicResource icon}" Glyph="&#xE2AF;"/>
+					</ui:NavigationViewItem.IconSource>
+				</ui:NavigationViewItem>
 				<ui:NavigationViewItem Content="关于" Tag="Info">
 					<ui:NavigationViewItem.IconSource>
 						<ui:FontIconSource FontFamily="{DynamicResource icon}" Glyph="&#xE946;"/>

@@ -5,7 +5,7 @@ using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Modules.Installer;
 using MinecraftLaunch.Modules.Models.Download;
 using MinecraftLaunch.Modules.Models.Install;
-using MinecraftLaunch.Modules.Utils;
+using MinecraftLaunch.Modules.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,7 +77,12 @@ namespace mclPlus.pages
                 ContentDialog dialog = new ContentDialog()
                 {
                     Title = "MCLX Multi-Platform Version",
-                    Content = $"{VerID.Text}安装完成！",
+                    Content = new TextBlock()
+                    {
+                        Text = $"{VerID.Text}安装完成！",
+                        FontFamily = verForge.FontFamily,
+                        FontSize = 16
+                    },
                     CloseButtonText = "好的",
                     FontFamily = verForge.FontFamily,
                 };
@@ -260,7 +265,12 @@ namespace mclPlus.pages
                 ContentDialog dialog = new ContentDialog()
                 {
                     Title = "MCLX Multi-Platform Version",
-                    Content = $"安装过程中出现了错误！\n错误信息:{ex.Message}",
+                    Content = new TextBlock()
+                    {
+                        Text = $"安装过程中出现了错误！\n错误信息:{ex.Message}",
+                        FontSize = 16,
+                        FontFamily = verForge.FontFamily
+                    },
                     CloseButtonText = "好的",
                     FontFamily = verForge.FontFamily,
                 };

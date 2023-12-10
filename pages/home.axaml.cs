@@ -6,7 +6,7 @@ using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Launch;
 using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Launch;
-using MinecraftLaunch.Modules.Utils;
+using MinecraftLaunch.Modules.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +25,6 @@ namespace mclPlus.pages
             verCombo.SelectionChanged += VerCombo_SelectionChanged;
             launchBtn.Click += LaunchBtn_Click;
             #endregion
-            List<showAccount> showAccounts = new();
-            accounts.ForEach(account =>
-            {
-                showAccounts.Add(new(account));
-            });
-            accountCombo.ItemsSource = showAccounts;
             var gamecore = new GameCoreUtil();
             var gameCores = gamecore.GetGameCores().ToList();
             List<string> temp = new();
@@ -45,14 +39,14 @@ namespace mclPlus.pages
             {
                 JavaPath = "自动选择合适的Java",
             };
-            List<JavaInfo> javaList = new()
+            List<string> javaList = new()
             {
-                fakeJava
+                "自动选择合适的Java"
             };
             var javas = JavaUtil.GetJavas();
             foreach (var java in javas)
             {
-                javaList.Add(java);
+                javaList.Add(java.JavaPath);
             }
             javaCombo.ItemsSource = javaList;
             javaCombo.SelectedIndex = 0;
@@ -76,7 +70,7 @@ namespace mclPlus.pages
                     {
                         launchData.Text = "正在选择合适的Java……";
                         string java = "";
-                        java = JavaUtil.GetCorrectOfGameJava(JavaUtil.GetJavas(), (new GameCoreUtil()).GetGameCore(verCombo.Text)).JavaPath;
+                        java = JavaUtil.GetCorrectOfGameJava(JavaUtil.GetJavas(), (new GameCoreUtil()).GetGameCore(verCombo.SelectedItem as string)).JavaPath;
                         if (java != "")
                         {
                             JvmConfig jc = new JvmConfig(java)
@@ -92,7 +86,12 @@ namespace mclPlus.pages
                             {
                                 Title = "MCLX Multi-Platform Version",
                                 CloseButtonText = "好的",
-                                Content = "未找到合适的Java！",
+                                Content = new TextBlock()
+                                {
+                                    Text = "未找到合适的Java！",
+                                    FontFamily = launchData.FontFamily,
+                                    FontSize = 16
+                                },
                                 FontFamily = launchData.FontFamily,
                             };
                             await dialog.ShowAsync();
@@ -100,7 +99,7 @@ namespace mclPlus.pages
                     }
                     else
                     {
-                        JvmConfig jc = new JvmConfig(javaCombo.Text)
+                        JvmConfig jc = new JvmConfig(javaCombo.SelectedItem as string)
                         {
                             MaxMemory = 2048,
                         };
@@ -112,7 +111,7 @@ namespace mclPlus.pages
                         await Task.Run(() =>
                         {                            
                             JavaMinecraftLauncher launcher = new(lc, new());
-                            result = launcher.Launch(verCombo.Text, x =>
+                            result = launcher.Launch(verCombo.SelectedItem as string, x =>
                             {
                                 Dispatcher.UIThread.InvokeAsync(() =>
                                 {
@@ -136,7 +135,12 @@ namespace mclPlus.pages
                                     {
                                         Title = "MCLX Multi-Platform Version",
                                         CloseButtonText = "好的",
-                                        Content = "启动成功！",
+                                        Content = new TextBlock()
+                                        {
+                                            Text = "启动成功！",
+                                            FontFamily = launchData.FontFamily,
+                                            FontSize = 16
+                                        },
                                         FontFamily = launchData.FontFamily,
                                     };
                                     dialog.ShowAsync();
@@ -151,7 +155,12 @@ namespace mclPlus.pages
                                     {
                                         Title = "MCLX Multi-Platform Version",
                                         CloseButtonText = "好的",
-                                        Content = "启动失败！发生的错误：" + result.Exception.Message,
+                                        Content = new TextBlock()
+                                        {
+                                            Text = "启动失败！发生的错误：" + result.Exception.Message,
+                                            FontFamily = launchData.FontFamily,
+                                            FontSize = 16
+                                        },
                                         FontFamily = launchData.FontFamily,
                                     };
                                     dialog.ShowAsync();
@@ -169,7 +178,12 @@ namespace mclPlus.pages
                     {
                         Title = "MCLX Multi-Platform Version",
                         CloseButtonText = "好的",
-                        Content = "未安装可用的Java！",
+                        Content = new TextBlock()
+                        {
+                            FontFamily = launchData.FontFamily,
+                            Text = "未安装可用的Java！",
+                            FontSize = 16
+                        },
                         FontFamily = launchData.FontFamily,
                     };
                     await dialog.ShowAsync();
@@ -183,7 +197,12 @@ namespace mclPlus.pages
                 {
                     Title = "MCLX Multi-Platform Version",
                     CloseButtonText = "好的",
-                    Content = "未选择游戏版本！",
+                    Content = new TextBlock()
+                    {
+                        FontFamily = launchData.FontFamily,
+                        Text = "未选择游戏版本！",
+                        FontSize = 16
+                    },
                     FontFamily = launchData.FontFamily,
                 };
                 await dialog.ShowAsync();

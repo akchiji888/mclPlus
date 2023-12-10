@@ -17,15 +17,11 @@
 		<StackPanel Margin="10,10,463,388">
 			<StackPanel Orientation="Horizontal">
 				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Java版本：" FontFamily="{DynamicResource default}" FontSize="14"/>
-				<ui:FAComboBox DisplayMemberBinding="{Binding JavaPath}" VerticalAlignment="Center" Width="170" x:Name="javaCombo" FontFamily="{DynamicResource default}"/>
+				<ComboBox  VerticalAlignment="Center" Width="250" x:Name="javaCombo" FontFamily="{DynamicResource default}"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Content="游戏版本：" FontFamily="{DynamicResource default}" FontSize="14"/>
-				<ui:FAComboBox VerticalAlignment="Center" Width="170" x:Name="verCombo" FontFamily="{DynamicResource default}"/>
-			</StackPanel>
-			<StackPanel Orientation="Horizontal">
-				<Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="{DynamicResource default}"  Content="游戏账户：" FontSize="14"/>
-				<ui:FAComboBox DisplayMemberBinding="{Binding showName}" VerticalAlignment="Center" Width="170" x:Name="accountCombo" FontFamily="{DynamicResource default}" />
+				<ComboBox VerticalAlignment="Center" Width="250" x:Name="verCombo" FontFamily="{DynamicResource default}"/>
 			</StackPanel>
 		</StackPanel>
 		<TextBlock x:Name="launchData" FontSize="14" FontFamily="{DynamicResource default}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,30"/>

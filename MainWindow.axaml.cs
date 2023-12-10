@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using mclPlus.pages;
 using MinecraftLaunch.Modules.Models.Download;
@@ -12,6 +13,7 @@ namespace mclPlus
 {
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();

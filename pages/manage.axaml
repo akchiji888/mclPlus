@@ -6,37 +6,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="mclPlus.pages.manage">
 	<Grid>
-		<ui:ContentDialog x:Name="AddAccount_Off" Classes="WinUiPro" Title="MCLX Multi-Platform Version">
-			<ui:ContentDialog.Content>
-				<StackPanel Margin="0,0,0,0">
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="玩家名称：" VerticalAlignment="Center" x:Name="OfflinePlayerName" Width="90"/>
-						<TextBox Width="210"/>
-					</StackPanel>
-					<TextBlock Height="20"/>
-					<!--用于增加缝隙-->
-					<StackPanel Orientation="Horizontal">
-						<Button Content="取消" x:Name="CancelBtn" Width="140"/>
-						<!--用于增加缝隙-->
-						<TextBlock Width="20"/>
-						<Button Content="确定" x:Name="OKBtn" Classes="accent" Width="140"/>
-					</StackPanel>
-				</StackPanel>
-			</ui:ContentDialog.Content>
-		</ui:ContentDialog>
-		<ui:ContentDialog CloseButtonText="取消" PrimaryButtonText="确定" FontFamily="{DynamicResource default}" x:Name="AddDialog" Classes="WinUiPro" Title="MCLX Multi-Platform Version">
-			<ui:ContentDialog.Content>
-				<StackPanel Margin="0,0,0,0">
-					<ui:FAComboBox Width="300" x:Name="loginMode"/>
-					<TextBlock Height="20"/>
-					<StackPanel Orientation="Horizontal">
-						<Button Width="140" FontFamily="{DynamicResource default}" x:Name="CancelBtn_off" Content="取消"/>
-						<TextBlock Width="20"/>
-						<Button Width="140" FontFamily="{DynamicResource default}" Content="确定" x:Name="OKBtn_off" Classes="accent"/>
-					</StackPanel>
-				</StackPanel>
-			</ui:ContentDialog.Content>
-		</ui:ContentDialog>
 		<TabControl>
 			<TabItem Header="游戏账户管理">
 				<Grid>
