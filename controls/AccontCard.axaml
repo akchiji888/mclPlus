@@ -6,6 +6,7 @@
              x:Class="mclPlus.controls.AccontCard">
 	<Border BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
 		<StackPanel>
+			
 			<Image x:Name="AccountImage" Height="200" />
 			<TextBlock x:Name="AccountName" FontSize="18" Text="0123456789123456" Width="192"/>
 			<TextBlock Foreground="Gray" x:Name="AccountType" Text="Microsoft账户" Width="192" FontFamily="Microsoft YaHei UI Light"  />

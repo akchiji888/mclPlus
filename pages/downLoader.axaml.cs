@@ -2,21 +2,26 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
-using MinecraftLaunch.Modules.Installer;
-using MinecraftLaunch.Modules.Models.Download;
-using MinecraftLaunch.Modules.Models.Install;
-using MinecraftLaunch.Modules.Utilities;
+using MinecraftLaunch.Classes.Models.Download;
+using MinecraftLaunch.Classes.Interfaces;
+using MinecraftLaunch.Classes.Models.Install;
+using MinecraftLaunch.Components.Fetcher;
+using MinecraftLaunch.Components.Installer;
+using MinecraftLaunch.Components.Resolver;
+using MinecraftLaunch.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static mclPlus.pages.MCLClasses;
+using Flurl.Http;
 
 namespace mclPlus.pages
 {
     public partial class downLoader : UserControl
     {
+        public string InstallingVersion;
         private InstallType installType = InstallType.Vanilla;
         public downLoader()
         {
@@ -61,7 +66,7 @@ namespace mclPlus.pages
             {
                 DownLoadBorder.IsEnabled = false;
                 bool HasJava = true;
-                if (JavaUtil.GetJavas().Count() < 1)
+                if (new JavaFetcher().Fetch().Count() < 1)
                 {
                     HasJava = false;
                 }
@@ -72,8 +77,9 @@ namespace mclPlus.pages
                 {
                     (desktop.MainWindow as MainWindow).mainView.IsEnabled = false;
                 }
-                var core = new GameCoreUtil();
-                var result = new InstallerResponse();
+                IGameResolver t = new GameResolver();
+                var core = t.GetGameEntity(VerID.Text);
+                bool result;
                 ContentDialog dialog = new ContentDialog()
                 {
                     Title = "MCLX Multi-Platform Version",
@@ -92,12 +98,12 @@ namespace mclPlus.pages
                         var ver = VerID.Text;
                         await Task.Run(async () =>
                         {
-                            GameCoreInstaller gci = new(core, ver);
+                            VanlliaInstaller gci = new(t, ver);
                             gci.ProgressChanged += async (c, x) =>
                             {
                                 await Dispatcher.UIThread.InvokeAsync(() =>
                                 {
-                                    Log.Text = $"{x.ProgressDescription} {x.Progress.ToString("P")}";
+                                    Log.Text = $"{x.ProgressStatus} {x.Progress.ToString("P")}";
                                     InstallBar.Value = x.Progress;
                                 });
                             };
@@ -106,7 +112,7 @@ namespace mclPlus.pages
 
                         break;
                     case InstallType.Quilt:
-                        var q_build = verQuilt.SelectedItem as QuiltInstallBuild;
+                        var q_build = verQuilt.SelectedItem as QuiltBuildEntry;
                         await Task.Run(async () =>
                         {
                             var qi = new QuiltInstaller(core, q_build);
@@ -114,7 +120,7 @@ namespace mclPlus.pages
                             {
                                 Dispatcher.UIThread.InvokeAsync(() =>
                                 {
-                                    Log.Text = $"{x.ProgressDescription} {x.Progress.ToString("P")}";
+                                    Log.Text = $"{x.ProgressStatus} {x.Progress.ToString("P")}";
                                     InstallBar.Value = x.Progress;
                                 });
                             };
@@ -122,7 +128,7 @@ namespace mclPlus.pages
                         });
                         break;
                     case InstallType.Fabric:
-                        var f_build = verFabric.SelectedItem as FabricInstallBuild;
+                        var f_build = verFabric.SelectedItem as FabricBuildEntry;
                         await Task.Run(async () =>
                         {
                             bool NeedFApi = false;
@@ -138,7 +144,7 @@ namespace mclPlus.pages
                             {
                                 Dispatcher.UIThread.InvokeAsync(() =>
                                 {
-                                    Log.Text = $"{x.ProgressDescription} {x.Progress.ToString("P")}";
+                                    Log.Text = $"{x.ProgressStatus} {x.Progress.ToString("P")}";
                                     InstallBar.Value = x.Progress;
                                 });
                             };
@@ -152,8 +158,8 @@ namespace mclPlus.pages
                                     InstallBar.IsIndeterminate = true;
                                     Log.Text = "正在下载Fabric API";
                                 });
-                                Directory.CreateDirectory(result.GameCore.GetModsPath());
-                                await HttpUtil.HttpDownloadAsync(file.Url, result.GameCore.GetModsPath());
+                                Directory.CreateDirectory(result.GameEntry.GetModsPath());
+                                await http.(file.Url, result.GameCore.GetModsPath());
                             }
                         });
                         dialog.Content = $"{VerID.Text}安装完成！";
@@ -161,15 +167,15 @@ namespace mclPlus.pages
                     case InstallType.Forge:
                         if (HasJava == true)
                         {
-                            var forge_build = verForge.SelectedItem as ForgeInstallEntity;
+                            var forge_build = verForge.SelectedItem as ForgeInstallEntry;
                             await Task.Run(async () =>
                             {
-                                var fi = new ForgeInstaller(core, forge_build, JavaUtil.GetJavas().FirstOrDefault().JavaPath);
+                                var fi = new ForgeInstaller(core, forge_build, new JavaFetcher().Fetch().FirstOrDefault().JavaPath);
                                 fi.ProgressChanged += async (c, x) =>
                                 {
                                     await Dispatcher.UIThread.InvokeAsync(() =>
                                     {
-                                        Log.Text = $"{x.ProgressDescription} {x.Progress.ToString("P")}";
+                                        Log.Text = $"{x.ProgressStatus} {x.Progress.ToString("P")}";
                                         InstallBar.Value = x.Progress;
                                     });
                                 };
@@ -183,13 +189,14 @@ namespace mclPlus.pages
                             await dialog.ShowAsync();
                         }
                         break;
+                        /*
                     case InstallType.NeoForge:
                         if (HasJava == true)
                         {
                             var neoBuild = verNeo.SelectedItem as NeoForgeInstallEntity;
                             await Task.Run(async () =>
                             {
-                                var ni = new NeoForgeInstaller(core, neoBuild, JavaUtil.GetJavas().FirstOrDefault().JavaPath);
+                                var ni = new NeoForgeInstaller(core, neoBuild, new JavaFetcher().Fetch().FirstOrDefault().JavaPath);
                                 ni.ProgressChanged += async (c, x) =>
                                 {
                                     await Dispatcher.UIThread.InvokeAsync(() =>
@@ -214,7 +221,7 @@ namespace mclPlus.pages
                             var optbuild = verOpt.SelectedItem as OptiFineInstallEntity;
                             await Task.Run(async () =>
                             {
-                                var fi = new OptiFineInstaller(core, optbuild, JavaUtil.GetJavas().FirstOrDefault().JavaPath);
+                                var fi = new OptiFineInstaller(core, optbuild, new JavaFetcher().Fetch().FirstOrDefault().JavaPath);
                                 fi.ProgressChanged += async (c, x) =>
                                 {
                                     await Dispatcher.UIThread.InvokeAsync(() =>
@@ -233,17 +240,12 @@ namespace mclPlus.pages
                             await dialog.ShowAsync();
                         }
                         break;
-
+                        */
                 }
                 if (CanContinue == true)
                 {
                     InstallBar.IsIndeterminate = true;
                     Log.Text = "正在进行资源补全……";
-                    await Task.Run(() =>
-                    {
-                        ResourceInstaller installer = new(result.GameCore);
-                        installer.DownloadAsync(null);
-                    });
                     InstallBar.IsIndeterminate = false;
                     await dialog.ShowAsync();
                     DownLoadBorder.IsEnabled = true;
@@ -257,7 +259,7 @@ namespace mclPlus.pages
                     (desktop1.MainWindow as MainWindow).mainFrame.Content = Down;
                 }
                 var Index = Home.verCombo.SelectedIndex;
-                Home.verCombo.ItemsSource = GameCoreToolkits[CurrentCoreToolkitIndex].GetGameCores();
+                Home.verCombo.ItemsSource = GameCoreToolkits[CurrentCoreToolkitIndex].GetGameEntitys();
                 Home.verCombo.SelectedIndex = Index;
             }
             catch(Exception ex)

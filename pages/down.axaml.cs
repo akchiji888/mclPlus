@@ -7,8 +7,8 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using mclPlus.controls;
-using MinecraftLaunch.Modules.Installer;
-using MinecraftLaunch.Modules.Models.Install;
+using MinecraftLaunch.Classes.Models.Launch;
+using MinecraftLaunch.Classes.Models.Install;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,12 +16,16 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static mclPlus.pages.MCLClasses;
+using MinecraftLaunch.Components.Resolver;
+using MinecraftLaunch.Classes.Interfaces;
+using MinecraftLaunch.Classes.Models.Game;
+using MinecraftLaunch.Components.Installer;
 
 namespace mclPlus.pages
 {
     partial class down : UserControl
     {
-        GameCoresEntity coresList = new();
+        IEnumerable<VersionManifestEntry> coresList;
         public down()
         {
             #region 初始化
@@ -48,7 +52,7 @@ namespace mclPlus.pages
             {
                 if (KuaiZhao.IsChecked == true)
                 {
-                    var verList_KuaiZhao = coresList.Cores.Where(x => x.Type == "snapshot" && (x.ReleaseTime.Month != 4 && x.ReleaseTime.Day != 1)).ToList();
+                    var verList_KuaiZhao = coresList.Where(x => x.Type == "snapshot" && (x.ReleaseTime.Month != 4 && x.ReleaseTime.Day != 1)).ToList();
                     verListBox.ItemsSource = JieXiVerList(verList_KuaiZhao);
                 }
             };
@@ -56,7 +60,7 @@ namespace mclPlus.pages
             {
                 if (YuanGu.IsChecked == true)
                 {
-                    var verList_YuanGu = coresList.Cores.Where(x => x.Type == "old_alpha" || x.Type == "old_beta").ToList();
+                    var verList_YuanGu = coresList.Where(x => x.Type == "old_alpha" || x.Type == "old_beta").ToList();
                     verListBox.ItemsSource = JieXiVerList(verList_YuanGu);
                 }
             };
@@ -64,7 +68,7 @@ namespace mclPlus.pages
             {
                 if (YuRenJie.IsChecked == true)
                 {
-                    var verList_Yurenjie = coresList.Cores.Where(x => x.ReleaseTime.Month == 4 && x.ReleaseTime.Day == 1).ToList();
+                    var verList_Yurenjie = coresList.Where(x => x.ReleaseTime.Month == 4 && x.ReleaseTime.Day == 1).ToList();
                     verListBox.ItemsSource = JieXiVerList(verList_Yurenjie);
                 }
             };
@@ -90,59 +94,41 @@ namespace mclPlus.pages
                     loader.InstallBar.IsIndeterminate = true;
                     loader.Log.Text = "加载中……";
                     #region Init loader
-                    ForgeInstallEntity fakeForge = new()
+                    ForgeInstallEntry fakeForge = new()
                     {
                         ForgeVersion = "未选择"
                     };
-                    FabricInstallBuild fakeFabric = new()
+                    FabricBuildEntry fakeFabric = new()
                     {
                         Loader = new()
                         {
                             Version = "未选择"
                         }
                     };
-                    OptiFineInstallEntity fakeOptiFine = new()
-                    {
-                        FileName = "未选择"
-                    };
-                    QuiltInstallBuild fakeQuilt = new()
+                    QuiltBuildEntry fakeQuilt = new()
                     {
                         Loader = new()
                         {
                             Version = "未选择"
                         }
                     };
-                    NeoForgeInstallEntity fakeNeoForge = new()
-                    {
-                        NeoForgeVersion = "未选择"
-                    };
-                    var forge = (await ForgeInstaller.GetForgeBuildsOfVersionAsync(mcVer)).ToList();
-                    var fabric = (await FabricInstaller.GetFabricBuildsByVersionAsync(mcVer)).ToList();
-                    var optifine = (await OptiFineInstaller.GetOptiFineBuildsFromMcVersionAsync(mcVer)).ToList();
-                    var quilt = (await QuiltInstaller.GetQuiltBuildsByVersionAsync(mcVer)).ToList();
-                    List<NeoForgeInstallEntity> neo;
-                    await Task.Run(() =>
-                    {
-                        neo = NeoForgeInstaller.GetNeoForgesOfVersionAsync(mcVer).ToList();
-                        neo.Insert(0, fakeNeoForge);
-                        Dispatcher.UIThread.Invoke(() =>
-                        {
-                            loader.verNeo.ItemsSource = neo;
-                        });
-                    });
+                    var forge = (await ForgeInstaller.EnumerableFromVersionAsync(mcVer)).ToList();
+                    var fabric = (await FabricInstaller.EnumerableFromVersionAsync(mcVer)).ToList();
+                    var quilt = (await QuiltInstaller.EnumerableFromVersionAsync(mcVer)).ToList();
                     forge.Insert(0, fakeForge);
                     fabric.Insert(0, fakeFabric);
-                    optifine.Insert(0, fakeOptiFine);
                     quilt.Insert(0, fakeQuilt);                    
                     loader.verForge.ItemsSource = forge;
                     loader.verFabric.ItemsSource = fabric;
-                    loader.verOpt.ItemsSource = optifine;
+                    loader.verOpt.Text = "暂不可用";
+                    loader.verOpt.IsEnabled = false;
                     loader.verQuilt.ItemsSource = quilt;                    
                     loader.verForge.SelectedIndex = 0;
                     loader.verQuilt.SelectedIndex = 0;
                     loader.verOpt.SelectedIndex = 0;
                     loader.verFabric.SelectedIndex = 0;
-                    loader.verNeo.SelectedIndex = 0;
+                    loader.verNeo.Text = "暂不可用";
+                    loader.verNeo.IsEnabled = false;
                     loader.InitFabricAPI(mcVer);
                     #endregion
                     loader.DownLoadBorder.IsEnabled = true;
@@ -154,12 +140,12 @@ namespace mclPlus.pages
         }
         private async void SetMCList()
         {
-            coresList = await GameCoreInstaller.GetGameCoresAsync();
-            var verList_release = coresList.Cores.Where(x => x.Type == "release").ToList();
+            coresList = await VanlliaInstaller.EnumerableGameCoreAsync();
+            var verList_release = coresList.Where(x => x.Type == "release").ToList();
             verListBox.ItemsSource = null;
             verListBox.ItemsSource = JieXiVerList(verList_release);
         }
-        private List<controls.MCVersionItem> JieXiVerList(List<GameCoreEmtity>? gameList)
+        private List<controls.MCVersionItem> JieXiVerList(List<VersionManifestEntry>? gameList)
         {
             List<controls.MCVersionItem> ItemsSource = new();
             foreach (var game in gameList)

@@ -3,16 +3,22 @@ using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
-using MinecraftLaunch.Launch;
-using MinecraftLaunch.Modules.Models.Auth;
-using MinecraftLaunch.Modules.Models.Launch;
-using MinecraftLaunch.Modules.Utilities;
+using MinecraftLaunch.Components.Launcher;
+using MinecraftLaunch.Classes.Models.Auth;
+using MinecraftLaunch.Classes.Models.Launch;
+using MinecraftLaunch.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static mclPlus.pages.MCLClasses;
+using MinecraftLaunch.Components.Resolver;
+using MinecraftLaunch.Classes.Interfaces;
+using MinecraftLaunch.Classes.Models.Game;
+using MinecraftLaunch.Components.Authenticator;
+using MinecraftLaunch.Components.Fetcher;
+using MinecraftLaunch.Components.Watcher;
 
 namespace mclPlus.pages
 {
@@ -20,13 +26,13 @@ namespace mclPlus.pages
     {
         public home()
         {
-            InitializeComponent();            
+            InitializeComponent();
             #region 事件绑定
             verCombo.SelectionChanged += VerCombo_SelectionChanged;
             launchBtn.Click += LaunchBtn_Click;
             #endregion
-            var gamecore = new GameCoreUtil();
-            var gameCores = gamecore.GetGameCores().ToList();
+            IGameResolver gamecore = new GameResolver();
+            var gameCores = gamecore.GetGameEntitys().ToList();
             List<string> temp = new();
             foreach (var core in gameCores)
             {
@@ -35,7 +41,7 @@ namespace mclPlus.pages
             verCombo.ItemsSource = temp;
             temp = null;
             GC.Collect();
-            JavaInfo fakeJava = new()
+            JavaEntry fakeJava = new()
             {
                 JavaPath = "自动选择合适的Java",
             };
@@ -43,7 +49,7 @@ namespace mclPlus.pages
             {
                 "自动选择合适的Java"
             };
-            var javas = JavaUtil.GetJavas();
+            var javas = new JavaFetcher().Fetch();
             foreach (var java in javas)
             {
                 javaList.Add(java.JavaPath);
@@ -53,24 +59,24 @@ namespace mclPlus.pages
         }
         private async void LaunchBtn_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            MinecraftLaunchResponse result;
+            IGameResolver gameResolver = new GameResolver();
             bool canStart = true;
             launchData.Text = "正在进行启动前检查……";
             if (verCombo.SelectedIndex != -1)
             {
                 LaunchConfig lc = new()
                 {
-                    Account = Account.Default,
+                    Account = new OfflineAuthenticator("Test").Authenticate(),
                     LauncherName = "MCLX Multi-Platform Version"
                 };
                 launchData.Text = "正在检查Java可用性……";
-                if (JavaUtil.GetJavas().Count() > 0)
+                if (new JavaFetcher().Fetch().Count() > 0)
                 {
                     if (javaCombo.SelectedIndex == 0)
                     {
                         launchData.Text = "正在选择合适的Java……";
                         string java = "";
-                        java = JavaUtil.GetCorrectOfGameJava(JavaUtil.GetJavas(), (new GameCoreUtil()).GetGameCore(verCombo.SelectedItem as string)).JavaPath;
+                        java = JavaUtil.GetCurrentJava(new JavaFetcher().Fetch(), gameResolver.GetGameEntity(verCombo.SelectedItem as string)).JavaPath;
                         if (java != "")
                         {
                             JvmConfig jc = new JvmConfig(java)
@@ -105,71 +111,35 @@ namespace mclPlus.pages
                         };
                         lc.JvmConfig = jc;
                     }
-                    if(canStart == true)
+                    if (canStart == true)
                     {
+                        launchBar.IsIndeterminate = true;
                         launchData.Text = "正在拉起启动进程……";
-                        await Task.Run(() =>
-                        {                            
-                            JavaMinecraftLauncher launcher = new(lc, new());
-                            result = launcher.Launch(verCombo.SelectedItem as string, x =>
+                        await Task.Run(async () =>
+                        {
+                            Launcher launcher = new(gameResolver, lc);
+                            var watcher = await launcher.LaunchAsync(verCombo.SelectedItem as string);
+                            await Dispatcher.UIThread.InvokeAsync(() =>
                             {
-                                Dispatcher.UIThread.InvokeAsync(() =>
+                                launchBar.IsIndeterminate = false;
+                                launchData.Text = "";
+                                ContentDialog dialog = new()
                                 {
-                                    launchBar.Value = x.Item1;
-                                    if(x.Item1 == 9f)
+                                    Title = "MCLX Multi-Platform Version",
+                                    CloseButtonText = "好的",
+                                    Content = new TextBlock()
                                     {
-                                        launchData.Text = $"{(x.Item1/10f).ToString("P2")} {x.Item2}";
-                                    }
-                                    else
-                                    {
-                                        launchData.Text = $"{x.Item1.ToString("P2")} {x.Item2}";
-                                    }                                    
-                                });
+                                        Text = "启动成功！",
+                                        FontFamily = launchData.FontFamily,
+                                        FontSize = 16
+                                    },
+                                    FontFamily = launchData.FontFamily,
+                                };
+                                dialog.ShowAsync();
                             });
-                            if (result.State is MinecraftLaunch.Modules.Enum.LaunchState.Succeess)
-                            {
-                                Dispatcher.UIThread.InvokeAsync(() =>
-                                {
-                                    launchData.Text = "";
-                                    ContentDialog dialog = new()
-                                    {
-                                        Title = "MCLX Multi-Platform Version",
-                                        CloseButtonText = "好的",
-                                        Content = new TextBlock()
-                                        {
-                                            Text = "启动成功！",
-                                            FontFamily = launchData.FontFamily,
-                                            FontSize = 16
-                                        },
-                                        FontFamily = launchData.FontFamily,
-                                    };
-                                    dialog.ShowAsync();
-                                });
-                            }
-                            else
-                            {
-                                Dispatcher.UIThread.InvokeAsync(() =>
-                                {
-                                    launchData.Text = "";
-                                    ContentDialog dialog = new()
-                                    {
-                                        Title = "MCLX Multi-Platform Version",
-                                        CloseButtonText = "好的",
-                                        Content = new TextBlock()
-                                        {
-                                            Text = "启动失败！发生的错误：" + result.Exception.Message,
-                                            FontFamily = launchData.FontFamily,
-                                            FontSize = 16
-                                        },
-                                        FontFamily = launchData.FontFamily,
-                                    };
-                                    dialog.ShowAsync();
-                                });
-
-                            }
                         });
                     }
-                }   
+                }
                 else
                 {
                     launchData.Text = "";

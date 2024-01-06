@@ -4,9 +4,6 @@ using Avalonia.Input;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using mclPlus.pages;
-using MinecraftLaunch.Modules.Models.Download;
-using MinecraftLaunch.Modules.Watcher;
-using MinecraftOAuth.Authenticator;
 using static mclPlus.pages.MCLClasses;
 
 namespace mclPlus
@@ -19,7 +16,6 @@ namespace mclPlus
             InitializeComponent();
             DragDrop.SetAllowDrop(this, true);
             mainView.SelectionChanged += MainView_SelectionChanged;
-            APIManager.Current.Host = APIManager.Mcbbs.Host;
             AppTitle.PointerPressed += AppTitle_PointerPressed;
             closeBtn.Click += (c, x) =>
             {
@@ -39,14 +35,6 @@ namespace mclPlus
                 maxBtn.IsVisible = true;
                 this.WindowState = WindowState.Normal;
             };
-            GameCoresWatcher watcher = new(".minecraft");
-            watcher.GameCoresChanged += (_, x) =>
-            {
-                var Index = Home.verCombo.SelectedIndex;
-                Home.verCombo.ItemsSource = GameCoreToolkits[CurrentCoreToolkitIndex].GetGameCores();
-                Home.verCombo.SelectedIndex = Index;
-            };
-            watcher.StartWatch();
             AddHandler(DragDrop.DropEvent, Drop);
         }
         private void MainView_SelectionChanged(object? sender, FluentAvalonia.UI.Controls.NavigationViewSelectionChangedEventArgs e)

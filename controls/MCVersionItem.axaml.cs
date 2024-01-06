@@ -7,6 +7,7 @@ namespace mclPlus.controls
         public MCVersionItem()
         {
             InitializeComponent();
+            
         }
     }
 }

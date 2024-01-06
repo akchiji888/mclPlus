@@ -7,7 +7,6 @@ namespace mclPlus.controls
         public AccontCard()
         {
             InitializeComponent();
-
         }
 
     }

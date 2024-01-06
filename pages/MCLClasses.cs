@@ -2,9 +2,8 @@
 using Avalonia.Platform;
 using Avalonia;
 using Microsoft.VisualBasic;
-using MinecraftLaunch.Modules.Models.Auth;
-using MinecraftLaunch.Modules.Models.Launch;
-using MinecraftLaunch.Modules.Utilities;
+using MinecraftLaunch.Classes.Models.Auth;
+using MinecraftLaunch.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,24 +11,26 @@ using System.IO;
 using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 using System.Web;
+using MinecraftLaunch.Classes.Interfaces;
+using MinecraftLaunch.Components.Resolver;
 
 namespace mclPlus.pages
 {
     internal class MCLClasses
     {
-        public class showAccount : Account
+        public record showAccount : Account
         {
             public showAccount(Account account)
             {
                 switch (account.Type)
                 {
-                    case MinecraftLaunch.Modules.Enum.AccountType.Offline:
+                    case MinecraftLaunch.Classes.Enums.AccountType.Offline:
                         showName = $"{account.Name}-离线账号";
                         break;
-                    case MinecraftLaunch.Modules.Enum.AccountType.Microsoft:
+                    case MinecraftLaunch.Classes.Enums.AccountType.Microsoft:
                         showName = $"{account.Name}-微软账号";
                         break;
-                    case MinecraftLaunch.Modules.Enum.AccountType.Yggdrasil:
+                    case MinecraftLaunch.Classes.Enums.AccountType.Yggdrasil:
                         showName = $"{account.Name}-外置登录账号";
                         break;
                 }
@@ -37,9 +38,9 @@ namespace mclPlus.pages
             public string showName { get; set; }
         }
         public static int CurrentCoreToolkitIndex = 0;
-        public static List<GameCoreUtil> GameCoreToolkits = new List<GameCoreUtil>()
+        public static List<GameResolver> GameCoreToolkits = new List<GameResolver>()
         {
-            new()
+            new GameResolver()
         }; 
         public static home Home = new();
         public static down Down = new down();

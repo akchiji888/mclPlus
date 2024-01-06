@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
 		<TrimMode>copyused</TrimMode>
@@ -102,9 +102,9 @@
 		<PackageReference Include="Avalonia.Desktop" Version="11.0.5" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
+		<PackageReference Include="DialogHost.Avalonia" Version="0.7.7" />
 		<PackageReference Include="FluentAvaloniaUI" Version="2.0.4" />
-		<PackageReference Include="MinecraftLaunch" Version="2.0.1" />
-		<PackageReference Include="MinecraftOAuth" Version="2.0.1" />
+		<PackageReference Include="MinecraftLaunch" Version="3.0.0-preview8" />
 		<PackageReference Include="Dotnet.Bundle" Version="*" />
 	</ItemGroup>
 	<ItemGroup>
@@ -118,10 +118,6 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Include=".github\workflows\CI-Build.yml" />
-	  <None Include=".github\workflows\CI-Check.yml" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Reference Include="Common">
 	    <HintPath>assets\Common.dll</HintPath>
 	  </Reference>
@@ -131,8 +127,5 @@
 	  <Reference Include="Storage.Standard">
 	    <HintPath>assets\Storage.Standard.dll</HintPath>
 	  </Reference>
-	</ItemGroup>
-	<ItemGroup>
-	  <UpToDateCheckInput Remove="pages\AddAccounts.axaml" />
 	</ItemGroup>
 </Project>
